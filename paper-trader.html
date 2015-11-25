@@ -1,0 +1,54 @@
+<head>
+  <title>Paper Trader</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,600,700' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+
+</body>
+
+
+<template name="main">
+	{{> yield}}
+</template>
+
+<template name="loginform">
+	<div class="container">
+		<div class="logo">
+			<img src="/logo-first-prototype.png"/>
+		</div>
+		<form class="user-form">
+			<input type="text" name="login_username" placeholder="Username"/>
+			<input type="password" name="login_password" placeholder="Password"/>
+			<div class="button-wrap">
+				<a href="{{pathFor route='register'}}"> Create an account </a>
+				<input type="submit" name="login_submit" value="Sign in" style="width: 40%;"/>
+			</div>
+			
+		</form>
+	</div>
+</template>
+
+<template name="registerform">
+	<div class="container">
+		<div class="logo">
+			<img src="/logo-first-prototype.png"/>
+		</div>
+		<form class="user-form">
+			<input type="email" name="register_email" placeholder="Email Address"/>
+			<input type="text" name="register_username" placeholder="Username"/>
+			<input type="password" name = "register_password" placeholder="Password"/>
+			<input type="submit" name="register_submit" value="Register"/>
+		</form>
+	</div>
+</template>
+
+<template name="accountsdashboard">
+	
+</template>
+
+
+<!-- TODOS -->
+	<!-- Dynamically remove loginform and insert registerform on click of create_acc -->
+	<!-- Take user to page to select trade accounts (Research user properties/objects) -->
