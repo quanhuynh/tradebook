@@ -1,5 +1,4 @@
-TradeAccounts = new Mongo.Collection("tradeaccounts");
-
+TradePortfolios = new Mongo.Collection('tradeporfolios');
 
 /* ******* */
 /* ROUTING */
@@ -24,12 +23,22 @@ Router.route('/registerform', {
   template: 'registerform'
 });
 
+Router.route('/portfoliosdashboard', {
+  name: 'portfoliosdashboard',
+  template: 'portfoliosdashboard'
+})
+
+Router.route('/newportfolio', {
+  name: 'newportfolio',
+  template: 'newportfolio'
+})
+
 /* ***************** */
 /* ROUTE TRANSITIONS */
 /* ***************** */
-/* For some reason Transitioner is not defined
+/*
 Transitioner.transition({
-  fromRoute: 'login',
+  fromRoute: 'home',
   toRoute: 'register',
   velocityAnimation: {
     in: 'transition.slideRightIn',
@@ -47,14 +56,13 @@ if (Meteor.isClient) {
   Template.loginform.events({
     'submit form': function(event) {
       event.preventDefault();
-      var user = event.target.login_username.value;
-      var pw = event.target.login_password.value;
-      Meteor.loginWithPassword(user, pw, function(error) {
-        //deal with login failure
+      var username = event.target.login_username.value;
+      var password = event.target.login_password.value;
+      Meteor.loginWithPassword(username, password, function(error) {
         if (error) {
           console.log(error.reason);
         } else {
-          console.log("Login successful");
+          Router.go('portfoliosdashboard');
         }
       });
     }
@@ -77,6 +85,28 @@ if (Meteor.isClient) {
       });
     }
   });
+
+  Template.portfoliosdashboard.helpers({
+    count: function() {
+      return TradePortfolios.find().count();
+    },
+    portfolios: function() {
+      return TradePortfolios.find();
+    }
+  });
+
+  Template.newportfolio.events({
+    'submit form': function(event) {
+      event.preventDefault();
+      var name = event.target.portfolio_name.value;
+      var balance = event.target.portfolio_balance.value;
+      var description = event.target.portfolio_description.value;
+
+      Meteor.call("addPortfolio", name, balance, description);
+      Router.go('portfoliosdashboard');
+    }
+  });
+
 }
 if (Meteor.isServer) {
   Meteor.startup(function () {
@@ -88,20 +118,20 @@ if (Meteor.isServer) {
 /* ************** */
 /* METEOR METHODS */
 /* ************** */
-
 Meteor.methods({
-  addTradeAcc: function(name) {
-    if (!Meteor.userId()) {
-      throw new Meteor.Error("Not Authorized");
+  addPortfolio: function(name, balance, description) {
+    if (! Meteor.userId()) {
+      throw new Meteor.Error("Not authorized");
     }
-    TradeAccounts.insert({
-      name: text,
-      createdAt: new Date(),
+    TradePortfolios.insert({
+      name: name,
+      balance: balance,
+      description: description,
       owner: Meteor.userId(),
-      user: Meteor.user().username
+      username: Meteor.user().username
     });
   },
-  deleteTradeAcc: function(tradeAccID) {
-    TradeAccounts.remove(tradeAccID);
+  deletePortfolio: function(portfolioId) {
+    TradePortfolios.remove(portfolioId);
   }
-});
+})

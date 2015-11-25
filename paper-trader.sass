@@ -9,15 +9,15 @@ body
 	margin: 0
 
 .container
-	max-width: 40vw
+	max-width: 60vw
 	text-align: center
 	.logo
-		width: 50%
+		width: 70%
 		margin: 0 auto
 		margin-top: 100px
 		text-align: center
 		img
-			width: 250px
+			width: 300px
 			padding: 25px
 	.user-form
 		margin: 0 auto
@@ -28,10 +28,10 @@ body
 		margin: 10px auto
 		text-align: right
 
-	input
+	input, textarea
 		display: inline-block
 		width: 70%
-		margin: 10px auto
+		margin: 0 auto 10px auto
 		padding: 10px
 		border: solid thin black
 		border-radius: 10px
@@ -45,3 +45,38 @@ body
 		transition: linear 2s
 		&:hover
 			text-decoration: none
+.page-title
+	width: 100%
+	font-size: 40px
+	text-align: center
+
+.portfolio-dashboard
+	text-align: center
+	.trade-portfolios
+		width: 60%
+		margin: 0 auto
+		.portfolio
+			display: inline-block
+			font-size: 25px
+			border: thin solid black
+			border-radius: 15px
+			padding: 10px
+			margin: 10px
+			width: 100%
+			.name
+				text-align: left
+			.balance
+				text-align: right
+	hr
+		width: 70%
+	a
+		margin: 0 auto
+		color: black
+		font-size: 25px
+		&:hover
+			text-decoration: none
+			color: black
+
+.new-portfolio
+	text-align: center
+
