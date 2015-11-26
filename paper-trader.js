@@ -54,6 +54,11 @@ Router.route('/deniedaccess', {
   template: 'deniedaccess'
 });
 
+Router.route('/loading', {
+  name: 'loading',
+  template: 'loading'
+});
+
 /* ***************** */
 /* ROUTE TRANSITIONS */
 /* ***************** */
@@ -77,7 +82,8 @@ if (Meteor.isClient) {
     'click .logout': function(event) {
       event.preventDefault();
       Meteor.logout();
-      Router.go('home');
+      Router.go('loading');
+      setTimeout(function(){Router.go('home')}, 1500);
     }
   });
 
@@ -90,7 +96,8 @@ if (Meteor.isClient) {
         if (error) {
           console.log(error.reason);
         } else {
-          Router.go('portfoliosdashboard');
+          Router.go('loading');
+          setTimeout(function(){Router.go('portfoliosdashboard')}, 1500);
         }
       });
     }
