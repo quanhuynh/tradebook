@@ -88,10 +88,10 @@ if (Meteor.isClient) {
 
   Template.portfoliosdashboard.helpers({
     count: function() {
-      return TradePortfolios.find().count();
+      return TradePortfolios.find({createdBy: Meteor.userId()}).count();
     },
     portfolios: function() {
-      return TradePortfolios.find();
+      return TradePortfolios.find({createdBy: Meteor.userId()});
     }
   });
 
@@ -127,7 +127,7 @@ Meteor.methods({
       name: name,
       balance: balance,
       description: description,
-      owner: Meteor.userId(),
+      createdBy: Meteor.userId(),
       username: Meteor.user().username
     });
   },
