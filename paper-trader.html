@@ -10,8 +10,26 @@
 
 <template name="header">
 	<div class="topbar">
-
+		<div class="selectors">
+			<div class="user-icon">
+				<img src="/user.png"/>
+			</div>
+			<div class="tools">
+				<div class="logout tool"> Logout </div>
+			</div>
+		</div>
 	</div>
+</template>
+
+<template name="footer">
+	<footer>
+		<div class="copyright-shit"> Don't steal my code </div>
+		<div class="links">
+			<a href="http://github.com/quanhuynh/tradebook"> Github source code </a>
+			|
+			<a href="http://quanhuynh.org"> Created by Quan Huynh </a> 
+		</div>
+	</footer>
 </template>
 
 <template name="main">
@@ -49,12 +67,12 @@
 </template>
 
 <template name="portfoliosdashboard">
-	{{#if currentUser}}
+	{{> header}}
 	<div class="portfolio-dashboard">
 		<div class="page-title"> Select a Trade Portfolio </div>
 		<div class="trade-portfolios">
 			{{#each portfolios}}
-				<div class="portfolio">
+				<div class="portfolio" data-name="{{name}}" data-balance="{{balance}}">
 					<div class="name col-md-9">
 						{{name}}
 					</div>
@@ -63,19 +81,17 @@
 					</div>
 				</div>
 			{{else}}
-				<h1> You do not have any trade portfolios </h1>
+				<div class="no-portfolios"> You do not have any trade portfolios </div>
 			{{/each}}
 		</div>
 		<hr>
 		<a href="{{pathFor route='newportfolio'}}"> Create a new trade portfolio </a>
 	</div>
-	{{else}}
-	<h1> You are not authorized to access this page </h1>
-	{{/if}}
+	{{> footer}}
 </template>
 
 <template name="newportfolio">
-	{{#if currentUser}}
+	{{> header}}
 	<div class="new-portfolio container">
 		<form class="user-form">
 			<h3> Name of Portfolio </h3>
@@ -87,11 +103,17 @@
 			<input type="submit" name="portfolio_submit" value="Create Portfolio"/>
 		</form>
 	</div>
-	{{else}}
-	<h1> You are not authorized to access this page </h1>
-	{{/if}}
+	{{> footer}}
+</template>
+
+<template name="deniedaccess">
+	<div class="denied-access">
+		<h1> Oops! </h1>
+		<h1> You are not authorized to access this page </h1>
+	</div>
 </template>
 
 <!-- TODOS -->
 	<!-- Add features to trade accounts -->
 	<!-- Make pages/templates (main dashboard, header, footer) -->
+	<!-- Style and add effects to all this shit -->

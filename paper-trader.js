@@ -25,13 +25,34 @@ Router.route('/registerform', {
 
 Router.route('/portfoliosdashboard', {
   name: 'portfoliosdashboard',
-  template: 'portfoliosdashboard'
-})
+  template: 'portfoliosdashboard',
+  onBeforeAction: function() {
+    var currentUser = Meteor.userId();
+    if (currentUser) {
+      this.next();
+    } else {
+      this.render('deniedaccess');
+    }
+  }
+});
 
 Router.route('/newportfolio', {
   name: 'newportfolio',
-  template: 'newportfolio'
-})
+  template: 'newportfolio',
+  onBeforeAction: function() {
+    var currentUser = Meteor.userId();
+    if (currentUser) {
+      this.next();
+    } else {
+      this.render('deniedaccess');
+    }
+  }
+});
+
+Router.route('/deniedaccess', {
+  name: 'deniedaccess',
+  template: 'deniedaccess'
+});
 
 /* ***************** */
 /* ROUTE TRANSITIONS */
@@ -51,7 +72,14 @@ Transitioner.transition({
 /* METEOR CLIENT/SERVER CODE */
 /* ************************* */
 if (Meteor.isClient) {
-  // counter starts at 0
+
+  Template.header.events({
+    'click .logout': function(event) {
+      event.preventDefault();
+      Meteor.logout();
+      Router.go('home');
+    }
+  });
 
   Template.loginform.events({
     'submit form': function(event) {
