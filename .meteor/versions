@@ -13,9 +13,7 @@ boilerplate-generator@1.0.4
 caching-compiler@1.0.0
 caching-html-compiler@1.0.2
 callback-hook@1.0.4
-ccorcos:transitioner@2.0.2
 check@1.1.0
-coffeescript@1.0.11
 ddp@1.2.2
 ddp-client@1.2.1
 ddp-common@1.2.2
@@ -60,6 +58,8 @@ npm-bcrypt@0.7.8_2
 npm-mongo@1.4.39_1
 observe-sequence@1.0.7
 ordered-dict@1.0.4
+percolate:momentum@0.7.2
+percolate:velocityjs@1.2.1_1
 promise@0.5.1
 random@1.0.5
 rate-limit@1.0.0
@@ -81,6 +81,5 @@ tracker@1.0.9
 ui@1.0.8
 underscore@1.0.4
 url@1.0.5
-velocityjs:velocityjs@1.2.1
 webapp@1.2.3
 webapp-hashing@1.0.5

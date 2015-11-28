@@ -105,6 +105,7 @@ body {
   padding: 10px;
   margin: 10px;
   width: 100%;
+  transition: linear 0.2s;
 }
 
 .portfolio-dashboard .trade-portfolios .portfolio .name {
@@ -113,6 +114,10 @@ body {
 
 .portfolio-dashboard .trade-portfolios .portfolio .balance {
   text-align: right;
+}
+
+.portfolio-dashboard .trade-portfolios .portfolio:hover {
+  transform: scale(1.01);
 }
 
 .portfolio-dashboard hr {

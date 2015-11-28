@@ -49,6 +49,8 @@ Router.route('/newportfolio', {
   }
 });
 
+
+
 Router.route('/deniedaccess', {
   name: 'deniedaccess',
   template: 'deniedaccess'
@@ -59,19 +61,7 @@ Router.route('/loading', {
   template: 'loading'
 });
 
-/* ***************** */
-/* ROUTE TRANSITIONS */
-/* ***************** */
-/*
-Transitioner.transition({
-  fromRoute: 'home',
-  toRoute: 'register',
-  velocityAnimation: {
-    in: 'transition.slideRightIn',
-    out: 'transition.slideLeftOut'
-  }
-});
-*/
+
 
 /* ************************* */
 /* METEOR CLIENT/SERVER CODE */
@@ -170,3 +160,8 @@ Meteor.methods({
     TradePortfolios.remove(portfolioId);
   }
 })
+
+
+/* ***************** */
+/* ROUTE TRANSITIONS */
+/* ***************** */
