@@ -44,20 +44,24 @@
 </template>
 
 <template name="loginform">
+	{{#if currentUser}}
+	{{> portfoliosdashboard}}
+	{{else}}
 	<div class="container animated fadeIn" id="loginform">
 		<div class="logo">
 			<img src="/logo-first-prototype.png"/>
 		</div>
 		<form class="user-form">
-			<input type="text" name="login_username" placeholder="Username"/>
-			<input type="password" name="login_password" placeholder="Password"/>
+			<input type="text" name="login_username" placeholder="Username" required/>
+			<input type="password" name="login_password" placeholder="Password" required/>
 			<div class="button-wrap">
-				<a id="loginToRegister" href="{{pathFor route='register'}}"> Join </a>
+				<a href="{{pathFor route='register'}}"> Join </a>
 				<input type="submit" name="login_submit" value="Sign in" style="width: 40%;"/>
 			</div>
 			
 		</form>
 	</div>
+	{{/if}}
 </template>
 
 <template name="registerform">
@@ -66,8 +70,8 @@
 			<img src="/logo-first-prototype.png"/>
 		</div>
 		<form class="user-form">
-			<input type="text" name="register_username" placeholder="Username"/>
-			<input type="password" name = "register_password" placeholder="Password"/>
+			<input type="text" name="register_username" placeholder="Username" required/>
+			<input type="password" name = "register_password" placeholder="Password" required/>
 			<input type="submit" name="register_submit" value="Register"/>
 		</form>
 	</div>
@@ -80,15 +84,19 @@
 		<div class="trade-portfolios">
 			{{#each portfolios}}
 				<div class="portfolio" data-name="{{name}}" data-balance="{{balance}}">
-					<div class="name col-md-9">
+					<div class="name col-md-6">
 						{{name}}
 					</div>
-					<div class="balance col-md-3">
+					<div class="balance col-md-4">
 						{{balance}}
+					</div>
+					<div class="modify col-md-2">
+						<div class="edit"> Edit </div>
+						<div class="remove"> Remove </div>
 					</div>
 				</div>
 			{{else}}
-				<div class="no-portfolios"> You do not have any trade portfolios </div>
+				<div class="no-portfolios animated fadeIn"> You do not have any trade portfolios </div>
 			{{/each}}
 		</div>
 		<hr>
@@ -102,9 +110,9 @@
 	<div class="new-portfolio container animated fadeInLeft">
 		<form class="user-form">
 			<h3> Name of Portfolio </h3>
-			<input type="text" name="portfolio_name" placeholder="Name of Portfolio" />
+			<input type="text" name="portfolio_name" placeholder="Name of Portfolio" required/>
 			<h3> Balance </h3>
-			<input type="number" name="portfolio_balance" min="1000" max="500000" step="1000" value="1000"/>
+			<input type="number" name="portfolio_balance" min="1000" max="500000" step="1000" value="1000" required/>
 			<h3> Description (optional) </h3>
 			<textarea name="portfolio_description" rows="5"> </textarea>
 			<input type="submit" name="portfolio_submit" value="Create Portfolio"/>

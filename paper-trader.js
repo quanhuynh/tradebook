@@ -68,6 +68,8 @@ Router.route('/loading', {
 /* ************************* */
 if (Meteor.isClient) {
 
+  Meteor.subscribe('tradeportfolios');
+
   Template.header.events({
     'click .logout': function(event) {
       event.preventDefault();
@@ -120,6 +122,29 @@ if (Meteor.isClient) {
     }
   });
 
+  
+  Template.portfoliosdashboard.events({
+    /*
+    'click .edit': function(event) {
+      event.preventDefault();
+      var portfolioName = $('.edit').parent().parent().data('name');
+      var currentUser = Meteor.userId();
+
+    },
+    */
+    'click .remove': function(event) {
+      event.preventDefault();
+      var portfolioName = $('.remove').parent().parent().data('name');
+      var portfolioBalance = $('.remove').parent().parent().data('balance');
+      var retVal = confirm("Are you sure you want to delete this portfolio?");
+      if (retVal) {
+        var portfolioId = TradePortfolios.findOne({name: portfolioName})._id;
+        Meteor.call("deletePortfolio", portfolioId);
+      }
+      
+    }
+  });
+
   Template.newportfolio.events({
     'submit form': function(event) {
       event.preventDefault();
@@ -134,9 +159,8 @@ if (Meteor.isClient) {
 
 }
 if (Meteor.isServer) {
-  Meteor.startup(function () {
-    // code to run on server at startup
-
+  Meteor.publish('tradeportfolios', function() {
+    return TradePortfolios.find({createdBy: this.userId});
   });
 }
 

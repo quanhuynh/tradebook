@@ -82,6 +82,17 @@ body {
   margin-top: 100px;
 }
 
+.portfolio-dashboard a {
+  margin: 0 auto;
+  color: black;
+  font-size: 25px;
+}
+
+.portfolio-dashboard a:hover {
+  text-decoration: none;
+  color: black;
+}
+
 .portfolio-dashboard .trade-portfolios {
   width: 60%;
   margin: 0 auto;
@@ -116,23 +127,17 @@ body {
   text-align: right;
 }
 
+.portfolio-dashboard .trade-portfolios .portfolio .modify {
+  text-align: right;
+  font-size: 15px;
+}
+
 .portfolio-dashboard .trade-portfolios .portfolio:hover {
   transform: scale(1.01);
 }
 
 .portfolio-dashboard hr {
   width: 70%;
-}
-
-.portfolio-dashboard a {
-  margin: 0 auto;
-  color: black;
-  font-size: 25px;
-}
-
-.portfolio-dashboard a:hover {
-  text-decoration: none;
-  color: black;
 }
 
 .topbar {
