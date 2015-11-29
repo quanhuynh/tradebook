@@ -1,8 +1,8 @@
-$error-text-color: #ccc
 $pomegranate-red: #c0392b
 $nephritis-green: #27ae60
 $emerald: #2ecc71
 $silver: #bdc3c7
+$clouds: #ecf0f1
 
 body
 	font-family: 'Open Sans', sans-serif
@@ -14,7 +14,6 @@ body
 	right: 0
 	padding: 0
 	margin: 0
-	background: $emerald
 	a
 		color: black
 		&:hover
@@ -22,7 +21,7 @@ body
 
 .denied-access
 	text-align: center
-	color: $error-text-color
+	color: $silver
 	margin: 100px
 	opacity: 0.7
 	font-size: 75px
@@ -30,8 +29,14 @@ body
 	text-shadow: 1px 1px #ccc
 
 .container
+	background: $emerald
 	max-width: 60vw
-	text-align: center
+	height: 100vh
+	text-align: center	
+	a
+		color: white
+		font-size: 20px
+		padding: 0 20px 0 10px
 	.logo
 		width: 70%
 		margin: 0 auto
@@ -41,6 +46,8 @@ body
 			width: 300px
 			padding: 25px
 	.user-form
+		h3
+			color: $clouds
 		margin: 0 auto
 		text-align: center
 		label
@@ -56,17 +63,13 @@ body
 		border: solid medium white
 	.button-wrap
 		display: inline-block
-		width: 70%
+		width: 50%
 		margin: 10px auto
 		text-align: right
-		a
-			color: white
-			font-size: 20px
-			padding: 0 20px 0 10px
 	input, textarea
 		font-weight: 600
 		display: inline-block
-		width: 70%
+		width: 50%
 		margin: 0 auto 10px auto
 		padding: 10px
 		border: solid thin white
@@ -76,38 +79,47 @@ body
 .page-title
 	width: 100%
 	font-size: 40px
+	font-weight: 700
+	color: $emerald
 	text-align: center
 
+#newport
+	background: white
+	h3
+		color: $emerald
+	input, textarea
+		border: solid thin $emerald
+	a
+		color: $emerald
 .portfolio-dashboard
 	text-align: center
 	margin-top: 100px
 	a
+		color: $emerald
 		margin: 0 auto
-		color: black
 		font-size: 25px
 		&:hover
 			text-decoration: none
-			color: black
 	.trade-portfolios
 		width: 60%
 		margin: 0 auto
 		.no-portfolios
 			font-size: 50px
 			font-weight: 600
-			color: $error-text-color
+			color: $clouds
 			opacity: 0.7
 			margin: 100px 50px 100px 50px
-			text-shadow: 1px 1px #ccc
 		.portfolio
 			cursor: pointer
 			display: inline-block
 			font-size: 25px
-			border: thin solid black
+			border: solid 3px $emerald
 			border-radius: 15px
 			padding: 10px
 			margin: 10px
 			width: 100%
 			transition: linear 0.2s
+			color: $emerald
 			.name
 				text-align: left
 			.balance
@@ -124,8 +136,10 @@ body
 .topbar
 	width: 100vw
 	height: 50px
-	background: #ccc
+	background: $emerald
 	text-align: right
+	color: white
+	font-weight: 600
 	.selectors
 		display: inline-block
 		.user-icon
@@ -140,20 +154,6 @@ body
 			float: left
 			.tool
 				cursor: pointer
-
-footer
-	background: #ccc
-	width: 100vw
-	padding: 25px
-	text-align: center
-	position: absolute
-	bottom: 0
-	font-size: 15px
-	a
-		color: black
-		&:hover
-			text-decoration: none
-			color: black
 
 #loading-icon
 	position: absolute

@@ -1,7 +1,5 @@
 <head>
   <title>Paper Trader</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
-  <link rel="stylesheet" href="/animate.css" type="text/css">
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,600,700' rel='stylesheet' type='text/css'>
 </head>
 
@@ -22,17 +20,6 @@
 	</div>
 </template>
 
-<template name="footer">
-	<footer>
-		<div class="copyright-shit"> Don't steal my code </div>
-		<div class="links">
-			<a href="http://github.com/quanhuynh/tradebook"> Github source code </a>
-			|
-			<a href="http://quanhuynh.org"> Created by Quan Huynh </a> 
-		</div>
-	</footer>
-</template>
-
 <template name="loading">
 	<div id="loading-icon">
 		<img src="/loading.gif"/>
@@ -47,7 +34,7 @@
 	{{#if currentUser}}
 	{{> portfoliosdashboard}}
 	{{else}}
-	<div class="container animated fadeIn" id="loginform">
+	<div class="container animated fadeInLeft" id="loginform">
 		<div class="logo">
 			<img src="/logo-first-prototype.png"/>
 		</div>
@@ -58,7 +45,6 @@
 				<a href="{{pathFor route='register'}}"> Join </a>
 				<input class="submit-btn" type="submit" name="login_submit" value="Sign in" style="width: 40%;"/>
 			</div>
-			
 		</form>
 	</div>
 	{{/if}}
@@ -74,13 +60,14 @@
 			<input type="password" name = "register_password" placeholder="Password" required/>
 			<input class="submit-btn" type="submit" name="register_submit" value="Register"/>
 		</form>
+		<a href="{{pathFor route='home'}}"> Back to Login </a>
 	</div>
 </template>
 
 <template name="portfoliosdashboard">
 	{{> header}}
 	<div class="portfolio-dashboard animated fadeInUp">
-		<div class="page-title"> Select a Trade Portfolio </div>
+		<div class="page-title"> Select a trade portfolio </div>
 		<div class="trade-portfolios">
 			{{#each portfolios}}
 				<div class="portfolio" data-name="{{name}}" data-balance="{{balance}}">
@@ -102,23 +89,25 @@
 		<hr>
 		<a href="{{pathFor route='newportfolio'}}"> Create a new trade portfolio </a>
 	</div>
-	{{> footer}}
+	
 </template>
 
 <template name="newportfolio">
 	{{> header}}
-	<div class="new-portfolio container animated fadeInLeft">
-		<form class="user-form">
+	<div class="new-portfolio container animated fadeInLeft" id="newport">
+		<div class="page-title"> Creating a new portfolio </div>
+		<form class="user-form new-portfolio-form">
 			<h3> Name of Portfolio </h3>
 			<input type="text" name="portfolio_name" placeholder="Name of Portfolio" required/>
 			<h3> Balance </h3>
 			<input type="number" name="portfolio_balance" min="1000" max="500000" step="1000" value="1000" required/>
 			<h3> Description (optional) </h3>
 			<textarea name="portfolio_description" rows="5"> </textarea>
-			<input type="submit" name="portfolio_submit" value="Create Portfolio"/>
+			<input class="submit-btn" type="submit" name="portfolio_submit" value="Create Portfolio"/>
 		</form>
+		<a href="{{pathFor route='portfoliosdashboard'}}"> Back to Dashboard </a>
 	</div>
-	{{> footer}}
+	
 </template>
 
 <template name="deniedaccess">

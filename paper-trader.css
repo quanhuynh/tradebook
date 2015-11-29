@@ -8,7 +8,6 @@ body {
   right: 0;
   padding: 0;
   margin: 0;
-  background: #2ecc71;
 }
 
 body a {
@@ -21,7 +20,7 @@ body a:hover {
 
 .denied-access {
   text-align: center;
-  color: #ccc;
+  color: #bdc3c7;
   margin: 100px;
   opacity: 0.7;
   font-size: 75px;
@@ -30,8 +29,16 @@ body a:hover {
 }
 
 .container {
+  background: #2ecc71;
   max-width: 60vw;
+  height: 100vh;
   text-align: center;
+}
+
+.container a {
+  color: white;
+  font-size: 20px;
+  padding: 0 20px 0 10px;
 }
 
 .container .logo {
@@ -49,6 +56,10 @@ body a:hover {
 .container .user-form {
   margin: 0 auto;
   text-align: center;
+}
+
+.container .user-form h3 {
+  color: #ecf0f1;
 }
 
 .container .user-form label {
@@ -70,21 +81,15 @@ body a:hover {
 
 .container .button-wrap {
   display: inline-block;
-  width: 70%;
+  width: 50%;
   margin: 10px auto;
   text-align: right;
-}
-
-.container .button-wrap a {
-  color: white;
-  font-size: 20px;
-  padding: 0 20px 0 10px;
 }
 
 .container input, .container textarea {
   font-weight: 600;
   display: inline-block;
-  width: 70%;
+  width: 50%;
   margin: 0 auto 10px auto;
   padding: 10px;
   border: solid thin white;
@@ -95,7 +100,25 @@ body a:hover {
 .page-title {
   width: 100%;
   font-size: 40px;
+  font-weight: 700;
+  color: #2ecc71;
   text-align: center;
+}
+
+#newport {
+  background: white;
+}
+
+#newport h3 {
+  color: #2ecc71;
+}
+
+#newport input, #newport textarea {
+  border: solid thin #2ecc71;
+}
+
+#newport a {
+  color: #2ecc71;
 }
 
 .portfolio-dashboard {
@@ -104,14 +127,13 @@ body a:hover {
 }
 
 .portfolio-dashboard a {
+  color: #2ecc71;
   margin: 0 auto;
-  color: black;
   font-size: 25px;
 }
 
 .portfolio-dashboard a:hover {
   text-decoration: none;
-  color: black;
 }
 
 .portfolio-dashboard .trade-portfolios {
@@ -122,22 +144,22 @@ body a:hover {
 .portfolio-dashboard .trade-portfolios .no-portfolios {
   font-size: 50px;
   font-weight: 600;
-  color: #ccc;
+  color: #ecf0f1;
   opacity: 0.7;
   margin: 100px 50px 100px 50px;
-  text-shadow: 1px 1px #ccc;
 }
 
 .portfolio-dashboard .trade-portfolios .portfolio {
   cursor: pointer;
   display: inline-block;
   font-size: 25px;
-  border: thin solid black;
+  border: solid 3px #2ecc71;
   border-radius: 15px;
   padding: 10px;
   margin: 10px;
   width: 100%;
   transition: linear 0.2s;
+  color: #2ecc71;
 }
 
 .portfolio-dashboard .trade-portfolios .portfolio .name {
@@ -164,8 +186,10 @@ body a:hover {
 .topbar {
   width: 100vw;
   height: 50px;
-  background: #ccc;
+  background: #2ecc71;
   text-align: right;
+  color: white;
+  font-weight: 600;
 }
 
 .topbar .selectors {
@@ -190,25 +214,6 @@ body a:hover {
 
 .topbar .selectors .tools .tool {
   cursor: pointer;
-}
-
-footer {
-  background: #ccc;
-  width: 100vw;
-  padding: 25px;
-  text-align: center;
-  position: absolute;
-  bottom: 0;
-  font-size: 15px;
-}
-
-footer a {
-  color: black;
-}
-
-footer a:hover {
-  text-decoration: none;
-  color: black;
 }
 
 #loading-icon {
