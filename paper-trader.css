@@ -1,12 +1,22 @@
 body {
   font-family: 'Open Sans', sans-serif;
   font-size: 10px;
+  height: 100vh;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
   padding: 0;
   margin: 0;
+  background: #2ecc71;
+}
+
+body a {
+  color: black;
+}
+
+body a:hover {
+  text-decoration: none;
 }
 
 .denied-access {
@@ -41,6 +51,23 @@ body {
   text-align: center;
 }
 
+.container .user-form label {
+  display: inherit;
+  font-size: 15px;
+  color: #c0392b;
+  margin-bottom: 15px;
+}
+
+.container .user-form input.error {
+  border: solid medium #c0392b;
+}
+
+.container .submit-btn {
+  color: white;
+  background: #2ecc71;
+  border: solid medium white;
+}
+
 .container .button-wrap {
   display: inline-block;
   width: 70%;
@@ -48,27 +75,21 @@ body {
   text-align: right;
 }
 
+.container .button-wrap a {
+  color: white;
+  font-size: 20px;
+  padding: 0 20px 0 10px;
+}
+
 .container input, .container textarea {
+  font-weight: 600;
   display: inline-block;
   width: 70%;
   margin: 0 auto 10px auto;
   padding: 10px;
-  border: solid thin black;
+  border: solid thin white;
   border-radius: 10px;
   font-size: 20px;
-}
-
-.container a {
-  margin: 0 10px 0 10px;
-  color: black;
-  font-size: 15px;
-  text-align: center;
-  padding-top: 5px;
-  transition: linear 2s;
-}
-
-.container a:hover {
-  text-decoration: none;
 }
 
 .page-title {

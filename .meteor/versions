@@ -57,8 +57,6 @@ npm-bcrypt@0.7.8_2
 npm-mongo@1.4.39_1
 observe-sequence@1.0.7
 ordered-dict@1.0.4
-percolate:momentum@0.7.2
-percolate:velocityjs@1.2.1_1
 promise@0.5.1
 random@1.0.5
 rate-limit@1.0.0
@@ -76,6 +74,7 @@ srp@1.0.4
 standard-minifiers@1.0.2
 templating@1.1.5
 templating-tools@1.0.0
+themeteorchef:jquery-validation@1.14.0
 tracker@1.0.9
 ui@1.0.8
 underscore@1.0.4

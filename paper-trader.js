@@ -79,39 +79,67 @@ if (Meteor.isClient) {
     }
   });
 
-  Template.loginform.events({
-    'submit form': function(event) {
-      event.preventDefault();
-      var username = event.target.login_username.value;
-      var password = event.target.login_password.value;
-      Meteor.loginWithPassword(username, password, function(error) {
-        if (error) {
-          console.log(error.reason);
-        } else {
-          Router.go('loading');
-          setTimeout(function(){Router.go('portfoliosdashboard')}, 1500);
-        }
-      });
-    }
+  Template.loginform.onRendered(function() {
+    $('.login-form').validate({
+      submitHandler: function(event) {
+        var username = $('[name=login_username]').val();
+        var password = $('[name=login_password]').val();
+        Meteor.loginWithPassword(username, password, function(error) {
+          if (error) {
+            console.log(error.reason);
+          } else {
+            Router.go('loading');
+            setTimeout(function(){Router.go('portfoliosdashboard')}, 1500);
+          }
+        });
+      }
+    });
   });
 
-  Template.registerform.events({
-    'submit form': function(event) {
-      event.preventDefault();
-      var user = event.target.register_username.value;
-      var pw = event.target.register_password.value;
-      Accounts.createUser({
-        username: user,
-        password: pw
-      }, function (error) {
-        if (error) {
-          console.log(error.reason);
-        } else {
-          Router.go('login');
-        }
-      });
-    }
+  /*
+  Template.loginform.events({
+    
   });
+  */
+
+  Template.registerform.onRendered(function() {
+    var registerValidator = $('.register-form').validate({
+      rules: {
+        register_password: {
+          minlength: 6
+        }
+      },
+      messages: {
+        register_password: {
+          minlength: "Password must be at least {0} characters"
+        }
+      },
+      submitHandler: function(event) {
+        var user = $('[name=register_username]').val();
+        var pw = $('[name=register_password]').val();
+        Accounts.createUser({
+          username: user,
+          password: pw
+        }, function (error) {
+          if (error) {
+            if (error.reason == "Username already exists.") {
+              registerValidator.showErrors({
+                register_username: error.reason
+              });
+            }
+          } else {
+            Router.go('home');
+          }
+        });
+      },
+    });
+  });
+
+  /*
+  Template.registerform.events({
+    
+  });
+  */
 
   Template.portfoliosdashboard.helpers({
     count: function() {

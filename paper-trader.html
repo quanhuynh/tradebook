@@ -51,12 +51,12 @@
 		<div class="logo">
 			<img src="/logo-first-prototype.png"/>
 		</div>
-		<form class="user-form">
+		<form class="user-form login-form">
 			<input type="text" name="login_username" placeholder="Username" required/>
 			<input type="password" name="login_password" placeholder="Password" required/>
 			<div class="button-wrap">
 				<a href="{{pathFor route='register'}}"> Join </a>
-				<input type="submit" name="login_submit" value="Sign in" style="width: 40%;"/>
+				<input class="submit-btn" type="submit" name="login_submit" value="Sign in" style="width: 40%;"/>
 			</div>
 			
 		</form>
@@ -69,10 +69,10 @@
 		<div class="logo">
 			<img src="/logo-first-prototype.png"/>
 		</div>
-		<form class="user-form">
+		<form class="user-form register-form">
 			<input type="text" name="register_username" placeholder="Username" required/>
 			<input type="password" name = "register_password" placeholder="Password" required/>
-			<input type="submit" name="register_submit" value="Register"/>
+			<input class="submit-btn" type="submit" name="register_submit" value="Register"/>
 		</form>
 	</div>
 </template>

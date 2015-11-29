@@ -1,14 +1,24 @@
 $error-text-color: #ccc
+$pomegranate-red: #c0392b
+$nephritis-green: #27ae60
+$emerald: #2ecc71
+$silver: #bdc3c7
 
 body
 	font-family: 'Open Sans', sans-serif
 	font-size: 10px
+	height: 100vh
 	top: 0
 	bottom: 0
 	left: 0
 	right: 0
 	padding: 0
 	margin: 0
+	background: $emerald
+	a
+		color: black
+		&:hover
+			text-decoration: none
 
 .denied-access
 	text-align: center
@@ -33,29 +43,35 @@ body
 	.user-form
 		margin: 0 auto
 		text-align: center
+		label
+			display: inherit
+			font-size: 15px
+			color: $pomegranate-red
+			margin-bottom: 15px
+		input.error
+			border: solid medium $pomegranate-red
+	.submit-btn
+		color: white
+		background: $emerald
+		border: solid medium white
 	.button-wrap
 		display: inline-block
 		width: 70%
 		margin: 10px auto
 		text-align: right
-
+		a
+			color: white
+			font-size: 20px
+			padding: 0 20px 0 10px
 	input, textarea
+		font-weight: 600
 		display: inline-block
 		width: 70%
 		margin: 0 auto 10px auto
 		padding: 10px
-		border: solid thin black
+		border: solid thin white
 		border-radius: 10px
 		font-size: 20px
-	a
-		margin: 0 10px 0 10px
-		color: black
-		font-size: 15px
-		text-align: center
-		padding-top: 5px
-		transition: linear 2s
-		&:hover
-			text-decoration: none
 
 .page-title
 	width: 100%
