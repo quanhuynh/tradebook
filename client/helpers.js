@@ -6,3 +6,9 @@ Template.portfoliosdashboard.helpers({
 	  return TradePortfolios.find({createdBy: Meteor.userId()});
 	}
 });
+
+Template.header.helpers({
+	username: function() {
+		return Meteor.user().username;
+	}
+});

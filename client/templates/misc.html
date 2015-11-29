@@ -1,0 +1,44 @@
+<template name="header">
+	<div class="topbar">
+		<div class="selectors">
+			<div class="username selector"> {{username}} </div>
+			<div class="logout selector"> Logout </div>
+		</div>
+	</div>
+</template>
+
+<template name="loading">
+	<div id="loading-icon">
+		<img src="/loading.gif"/>
+	</div>
+</template>
+
+<template name="deniedaccess">
+	<div class="denied-access">
+		<h1> Oops! </h1>
+		<h1> You are not authorized to access this page </h1>
+	</div>
+</template>
+
+<template name="sidebar">
+	<div class="col-sm-2 sidebar">
+		<div class="sidebar-section">
+			<div class="section-header"> Trading </div>
+			<a> Buy </a>
+			<a> Sell </a>
+		</div>
+		<div class="sidebar-section">
+			<div class="section-header"> Resources </div>
+			<a> Resource 1 </a>
+			<a> Resource 2 </a>
+			<a> Resource 3 </a>
+			<a> Resource 4 </a>
+		</div>
+		<div class="sidebar-section">
+			<div class="section-header"> About </div>
+			<a> TradeBook </a>
+			<a href="http://github.com/quanhuynh/tradebook" target="_blank"> Github page </a>
+			<a href="http://quanhuynh.org" target="_blank"> Personal page </a>
+		</div>
+	</div>
+</template>

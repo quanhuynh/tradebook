@@ -1,14 +1,5 @@
 Meteor.subscribe('tradeportfolios');
 
-Template.header.events({
-  'click .logout': function(event) {
-    event.preventDefault();
-    Meteor.logout();
-    Router.go('loading');
-    setTimeout(function(){Router.go('home')}, 1500);
-  }
-});
-
 Template.loginform.onRendered(function() {
   $('.login-form').validate({
     submitHandler: function(event) {

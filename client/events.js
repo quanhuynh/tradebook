@@ -4,6 +4,19 @@ Template.registerform.events({
 });
 */
 
+Template.header.events({
+  'click .logout': function(event) {
+    event.preventDefault();
+    Meteor.logout();
+    Router.go('loading');
+    setTimeout(function(){Router.go('home')}, 1500);
+  },
+  'click .username': function(event) {
+    event.preventDefault();
+    Router.go('home');
+  }
+});
+
 Template.portfoliosdashboard.events({
   /*
   'click .edit': function(event) {

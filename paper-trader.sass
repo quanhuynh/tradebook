@@ -91,6 +91,7 @@ body
 		border: solid thin $emerald
 	a
 		color: $emerald
+
 .portfolio-dashboard
 	text-align: center
 	margin-top: 100px
@@ -132,28 +133,62 @@ body
 	hr
 		width: 70%
 
+.main-dashboard-container
+	.sidebar
+		background: $emerald
+		color: white
+		height: 100vh
+		.sidebar-section
+			padding: 20px
+			width: 100%
+			text-align: right
+			.section-header
+				font:
+					size: 28px
+					weight: 600
+				border-bottom: thin solid white
+				width: 100%
+				text-align: center
+			a
+				font-size: 20px
+				padding-top: 15px
+				display: inherit
+				color: white
+				&:hover
+					text-decoration: none
+
+	.maincontent
+		padding: 20px
+		.page-title
+			margin: 50px 0 75px 0
+		.outer-panel
+			padding: 10px
+			.inner-panel
+				border: solid medium $emerald
+				padding: 15px
+				.panel-header
+					color: $emerald
+					font:
+						size: 30px
+						weight: 700
+
 
 .topbar
 	width: 100vw
 	height: 50px
 	background: $emerald
-	text-align: right
 	color: white
 	font-weight: 600
 	.selectors
+		float: right
 		display: inline-block
-		.user-icon
-			padding: 0 15px 0 15px
+		line-height: 50px
+		padding: 0 15px 0 15px
+		font-size: 20px
+		.selector
 			float: left
-			img
-				width: 50px
-		.tools
-			line-height: 50px
-			padding: 0 15px 0 15px
-			font-size: 20px
-			float: left
-			.tool
-				cursor: pointer
+			cursor: pointer
+			padding: 0 10px 0 10px
 
 #loading-icon
 	position: absolute

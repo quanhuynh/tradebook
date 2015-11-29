@@ -1,0 +1,56 @@
+<template name="portfoliosdashboard">
+	{{> header}}
+	<div class="portfolio-dashboard animated fadeInUp">
+		<div class="page-title"> Select a trade portfolio </div>
+		<div class="trade-portfolios">
+			{{#each portfolios}}
+				<div class="portfolio" data-name="{{name}}" data-balance="{{balance}}">
+					<div class="name col-md-6">
+						{{name}}
+					</div>
+					<div class="balance col-md-4">
+						{{balance}}
+					</div>
+					<div class="modify col-md-2">
+						<div class="edit"> Edit </div>
+						<div class="remove"> Remove </div>
+					</div>
+				</div>
+			{{else}}
+				<div class="no-portfolios animated fadeIn"> You do not have any trade portfolios </div>
+			{{/each}}
+		</div>
+		<hr>
+		<a href="{{pathFor route='newportfolio'}}"> Create a new trade portfolio </a>
+	</div>
+</template>
+
+<template name="maindashboard">
+	<div class="main-dashboard-container">
+		{{> sidebar}}
+		<div class="col-sm-10 maincontent">
+			<div class="page-title"> Your Portfolio </div>
+			<div class="col-md-4 outer-panel">
+				<div class="inner-panel">
+					<div class="panel-header"> Overview </div>
+				</div>
+			</div>
+			<div class="col-md-8 outer-panel"> 
+				<div class="inner-panel">
+					<div class="panel-header"> Holdings </div>
+				</div>
+			</div>
+			<div class="col-md-6 outer-panel">
+				<div class="inner-panel">
+					<div class="panel-header"> Quick Quotes </div>
+				</div>
+			</div>
+			<div class="col-md-6 outer-panel">
+				<div class="inner-panel">
+					<div class="panel-header"> News </div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</template>
