@@ -12,8 +12,7 @@ Template.loginform.onRendered(function() {
             login_password: "Username and/or password not correct"
           });
         } else {
-          Router.go('loading');
-          setTimeout(function(){Router.go('portfoliosdashboard')}, 1500);
+          Router.go('portfoliosdashboard');
         }
       });
     }
@@ -56,4 +55,4 @@ Template.registerform.onRendered(function() {
 
 Template.newportfolio.onRendered(function() {
   $('.new-portfolio-form').validate();
-})
+});

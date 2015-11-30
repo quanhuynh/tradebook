@@ -8,5 +8,7 @@
 </body>
 
 <template name="main">
-	{{> yield}}
+	{{#transitioner}}
+		{{> yield}}
+	{{/transitioner}}
 </template>

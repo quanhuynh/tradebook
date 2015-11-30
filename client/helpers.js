@@ -1,3 +1,9 @@
+Template.loginform.helpers({
+	moveToPortfolios: function() {
+		Router.go('portfoliosdashboard');
+	}
+});
+
 Template.portfoliosdashboard.helpers ({
 	count: function() {
 	  return TradePortfolios.find({createdBy: Meteor.userId()}).count();

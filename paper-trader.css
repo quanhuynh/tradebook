@@ -82,7 +82,7 @@ body a:hover {
 .container .button-wrap {
   display: inline-block;
   width: 50%;
-  margin: 10px auto;
+  margin: 0 auto;
   text-align: right;
 }
 

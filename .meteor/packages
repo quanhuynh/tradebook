@@ -20,3 +20,5 @@ accounts-password
 iron:router
 blaze
 themeteorchef:jquery-validation
+ajbarry:yahoo-finance
+ccorcos:transitioner

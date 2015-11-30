@@ -1,57 +1,62 @@
 <template name="portfoliosdashboard">
-	{{> header}}
-	<div class="portfolio-dashboard animated fadeInUp">
-		<div class="page-title"> Select a trade portfolio </div>
-		<div class="trade-portfolios">
-			{{#each portfolios}}
-				<div class="portfolio" data-name="{{name}}" data-balance="{{balance}}">
-					<div class="name col-md-6">
-						{{name}}
+	<div class="wrapper">
+		{{> header}}
+		<div class="portfolio-dashboard">
+			<div class="page-title"> Select a trade portfolio </div>
+			<div class="trade-portfolios">
+				{{#each portfolios}}
+					<div class="portfolio" data-name="{{name}}" data-balance="{{balance}}">
+						<div class="name col-md-6">
+							{{name}}
+						</div>
+						<div class="balance col-md-4">
+							{{balance}}
+						</div>
+						<div class="modify col-md-2">
+							<div class="edit"> Edit </div>
+							<div class="remove"> Remove </div>
+						</div>
 					</div>
-					<div class="balance col-md-4">
-						{{balance}}
-					</div>
-					<div class="modify col-md-2">
-						<div class="edit"> Edit </div>
-						<div class="remove"> Remove </div>
-					</div>
-				</div>
-			{{else}}
-				<div class="no-portfolios animated fadeIn"> You do not have any trade portfolios </div>
-			{{/each}}
+				{{else}}
+					<div class="no-portfolios"> You do not have any trade portfolios </div>
+				{{/each}}
+			</div>
+			<hr>
+			<a href="{{pathFor route='newportfolio'}}"> Create a new trade portfolio </a>
 		</div>
-		<hr>
-		<a href="{{pathFor route='newportfolio'}}"> Create a new trade portfolio </a>
 	</div>
 </template>
 
 <template name="maindashboard">
-	<div class="main-dashboard-container animated fadeIn">
-		{{> header}}
-		{{> sidebar}}
-		<div class="col-sm-10 maincontent">
-			<div class="page-title"> {{portfolio}} </div>
-			<div class="col-md-4 outer-panel">
-				<div class="inner-panel">
-					<div class="panel-header"> Overview </div>
+	<div class="wrapper">
+		<div class="main-dashboard-container">
+			{{> header}}
+			{{> sidebar}}
+			<div class="col-sm-10 maincontent">
+				<div class="page-title"> {{portfolio}} </div>
+				<div class="col-md-4 outer-panel">
+					<div class="inner-panel">
+						<div class="panel-header"> Overview </div>
+					</div>
 				</div>
-			</div>
-			<div class="col-md-8 outer-panel"> 
-				<div class="inner-panel">
-					<div class="panel-header"> Holdings </div>
+				<div class="col-md-8 outer-panel"> 
+					<div class="inner-panel">
+						<div class="panel-header"> Holdings </div>
+					</div>
 				</div>
-			</div>
-			<div class="col-md-6 outer-panel">
-				<div class="inner-panel">
-					<div class="panel-header"> Quick Quotes </div>
+				<div class="col-md-6 outer-panel">
+					<div class="inner-panel">
+						<div class="panel-header"> Quick Quotes </div>
+						<input type="text" name="symbol" placeholder="Search for a symbol"/>
+					</div>
 				</div>
-			</div>
-			<div class="col-md-6 outer-panel">
-				<div class="inner-panel">
-					<div class="panel-header"> News </div>
+				<div class="col-md-6 outer-panel">
+					<div class="inner-panel">
+						<div class="panel-header"> News </div>
+					</div>
 				</div>
-			</div>
 
+			</div>
 		</div>
 	</div>
 </template>
