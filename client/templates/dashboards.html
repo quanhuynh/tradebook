@@ -26,10 +26,11 @@
 </template>
 
 <template name="maindashboard">
-	<div class="main-dashboard-container">
+	<div class="main-dashboard-container animated fadeIn">
+		{{> header}}
 		{{> sidebar}}
 		<div class="col-sm-10 maincontent">
-			<div class="page-title"> Your Portfolio </div>
+			<div class="page-title"> {{portfolio}} </div>
 			<div class="col-md-4 outer-panel">
 				<div class="inner-panel">
 					<div class="panel-header"> Overview </div>

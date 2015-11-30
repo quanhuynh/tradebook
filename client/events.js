@@ -11,7 +11,7 @@ Template.header.events({
     Router.go('loading');
     setTimeout(function(){Router.go('home')}, 1500);
   },
-  'click .username': function(event) {
+  'click .portlink': function(event) {
     event.preventDefault();
     Router.go('home');
   }
@@ -26,10 +26,24 @@ Template.portfoliosdashboard.events({
 
   },
   */
+  'click .portfolio': function(event) {
+    event.preventDefault();
+    var portfolioName = event.currentTarget.getAttribute('data-name');
+    var oldCurrent = TradePortfolios.findOne({current:true});
+    if (!(oldCurrent === undefined)) {
+      TradePortfolios.update(oldCurrent._id, {
+        $set: {current: false}
+      });
+    }
+    TradePortfolios.update(TradePortfolios.findOne({name:portfolioName})._id, {
+      $set: {current: true}
+    });
+    Router.go('dashboard');
+  },
+
   'click .remove': function(event) {
     event.preventDefault();
-    var portfolioName = $('.remove').parent().parent().data('name');
-    var portfolioBalance = $('.remove').parent().parent().data('balance');
+    var portfolioName = $(event.currentTarget).parent().parent().data('name');
     var retVal = confirm("Are you sure you want to delete this portfolio?");
     if (retVal) {
       var portfolioId = TradePortfolios.findOne({name: portfolioName})._id;

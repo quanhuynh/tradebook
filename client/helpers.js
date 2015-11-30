@@ -1,4 +1,4 @@
-Template.portfoliosdashboard.helpers({
+Template.portfoliosdashboard.helpers ({
 	count: function() {
 	  return TradePortfolios.find({createdBy: Meteor.userId()}).count();
 	},
@@ -7,8 +7,19 @@ Template.portfoliosdashboard.helpers({
 	}
 });
 
-Template.header.helpers({
+Template.header.helpers ({
 	username: function() {
-		return Meteor.user().username;
+		if (Meteor.user()) {
+			return Meteor.user().username;
+		}
+	}
+});
+
+Template.maindashboard.helpers ({
+	portfolio: function() {
+		if (TradePortfolios.findOne({current:true})) {
+			return TradePortfolios.findOne({current: true}).name;
+		}
+		
 	}
 });

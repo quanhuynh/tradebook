@@ -119,7 +119,7 @@ body
 			padding: 10px
 			margin: 10px
 			width: 100%
-			transition: linear 0.2s
+			transition: linear 0.1s
 			color: $emerald
 			.name
 				text-align: left
@@ -128,8 +128,14 @@ body
 			.modify
 				text-align: right
 				font-size: 15px
+				.remove
+					transition: linear 0.2s
+					&:hover
+						color: $pomegranate-red
 			&:hover
-				transform: scale(1.01)
+				color: $nephritis-green
+				border: solid 3px $nephritis-green
+
 	hr
 		width: 70%
 
@@ -160,7 +166,7 @@ body
 	.maincontent
 		padding: 20px
 		.page-title
-			margin: 50px 0 75px 0
+			margin: 40px 0 40px 0
 		.outer-panel
 			padding: 10px
 			.inner-panel
@@ -172,9 +178,8 @@ body
 						size: 30px
 						weight: 700
 
-
 .topbar
-	width: 100vw
+	max-width: 100vw
 	height: 50px
 	background: $emerald
 	color: white

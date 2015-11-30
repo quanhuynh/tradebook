@@ -1,13 +1,16 @@
 Meteor.subscribe('tradeportfolios');
 
 Template.loginform.onRendered(function() {
-  $('.login-form').validate({
+  var loginValidator = $('.login-form').validate({
     submitHandler: function(event) {
       var username = $('[name=login_username]').val();
       var password = $('[name=login_password]').val();
       Meteor.loginWithPassword(username, password, function(error) {
         if (error) {
-          console.log(error.reason);
+          loginValidator.showErrors({
+            login_username: "Username and/or password not correct",
+            login_password: "Username and/or password not correct"
+          });
         } else {
           Router.go('loading');
           setTimeout(function(){Router.go('portfoliosdashboard')}, 1500);
@@ -17,11 +20,6 @@ Template.loginform.onRendered(function() {
   });
 });
 
-/*
-Template.loginform.events({
-  
-});
-*/
 
 Template.registerform.onRendered(function() {
   var registerValidator = $('.register-form').validate({
