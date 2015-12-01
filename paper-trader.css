@@ -241,9 +241,23 @@ body a:hover {
 }
 
 .main-dashboard-container .maincontent .outer-panel .inner-panel .panel-header {
+  width: 100%;
   color: #2ecc71;
-  font-size: 30px;
-  font-weight: 700;
+}
+
+.main-dashboard-container .maincontent .outer-panel .inner-panel .panel-header h3 {
+  margin: 0;
+  font-weight: 600;
+  display: inline;
+}
+
+.main-dashboard-container .maincontent .outer-panel .inner-panel .panel-header .search-field {
+  width: 40%;
+  float: right;
+  padding-left: 5px;
+  border: thin solid #2ecc71;
+  border-radius: 2px;
+  font-size: 15px;
 }
 
 .topbar {

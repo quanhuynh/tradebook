@@ -58,3 +58,12 @@ Template.newportfolio.events({
     Router.go('portfoliosdashboard');
   }
 });
+
+Template.maindashboard.events({
+  'keyup .search-field': function(event) {
+    event.preventDefault();
+    if (event.keyCode == 13) {
+      console.log("Enter key pressed");
+    }
+  }
+});
