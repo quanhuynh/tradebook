@@ -60,10 +60,12 @@ Template.newportfolio.events({
 });
 
 Template.maindashboard.events({
-  'keyup .search-field': function(event) {
+  'submit .search-field': function(event) {
     event.preventDefault();
-    if (event.keyCode == 13) {
-      console.log("Enter key pressed");
-    }
+    var symInput = event.target.symbol;
+    Meteor.call("getQuote", symInput.value, function(error, result) {
+      Session.set('quickquote', result);
+    });
+    symInput.value = "";
   }
 });

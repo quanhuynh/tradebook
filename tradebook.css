@@ -254,10 +254,14 @@ body a:hover {
 .main-dashboard-container .maincontent .outer-panel .inner-panel .panel-header .search-field {
   width: 40%;
   float: right;
+  font-size: 15px;
+}
+
+.main-dashboard-container .maincontent .outer-panel .inner-panel .panel-header .search-field input {
+  width: 100%;
   padding-left: 5px;
   border: thin solid #2ecc71;
-  border-radius: 2px;
-  font-size: 15px;
+  border-radius: 3px;
 }
 
 .topbar {

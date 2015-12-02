@@ -48,7 +48,14 @@
 				<div class="col-md-6 outer-panel">
 					<div class="inner-panel">
 						<div class="panel-header"> <h3>Quick Quotes </h3>
-							<input class="search-field" type="text" name="symbol" placeholder="Search for a symbol"/>
+							<form class="search-field">
+								<input type="text" name="symbol" placeholder="Search for a symbol"/>
+							</form>
+						</div>
+						<div class="panel-content"> 
+							{{#if showQuickQuote}}
+							<div> {{quickQuote "name"}} | {{quickQuote "symbol"}} </div>
+							{{/if}}
 						</div>
 					</div>
 				</div>
