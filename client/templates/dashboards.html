@@ -52,11 +52,26 @@
 								<input type="text" name="symbol" placeholder="Search for a symbol"/>
 							</form>
 						</div>
+						{{#if showQuickQuote}}
 						<div class="panel-content"> 
-							{{#if showQuickQuote}}
-							<div> {{quickQuote "name"}} | {{quickQuote "symbol"}} </div>
-							{{/if}}
+							<div class="quickquote quickquote-title"> {{quickQuote "name"}} | {{quickQuote "symbol"}} </div>
+							<div class="quickquote quickquote-prices">
+								Ask: ${{quickQuote "ask"}}
+							</div>
+							<div class="quickquote quickquote-prices">
+								Bid: ${{quickQuote "bid"}}
+							</div>
+							<div class="quickquote quickquote-prices">
+								Volume: {{quickQuote "volume"}}
+							</div>
+							<div class="quickquote quickquote-prices">
+								Day Change: {{quickQuote "change"}}
+							</div>
 						</div>
+						{{else}}
+						<div class="nostock"> Nothing to show. Search for a stock! </div>
+						{{/if}}
+
 					</div>
 				</div>
 				<div class="col-md-6 outer-panel">

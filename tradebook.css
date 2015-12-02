@@ -264,6 +264,33 @@ body a:hover {
   border-radius: 3px;
 }
 
+.main-dashboard-container .maincontent .outer-panel .inner-panel .panel-content {
+  padding-top: 10px;
+  transition: linear 0.2s;
+}
+
+.main-dashboard-container .maincontent .outer-panel .inner-panel .panel-content .quickquote {
+  display: inline;
+  padding: 5px;
+}
+
+.main-dashboard-container .maincontent .outer-panel .inner-panel .panel-content .quickquote-title {
+  display: inherit;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.main-dashboard-container .maincontent .outer-panel .inner-panel .panel-content .quickquote-prices {
+  font-size: 15px;
+}
+
+.main-dashboard-container .maincontent .outer-panel .inner-panel .nostock {
+  padding: 5px;
+  color: #bdc3c7;
+  font-size: 15px;
+  font-weight: 600;
+}
+
 .topbar {
   max-width: 100vw;
   height: 50px;
