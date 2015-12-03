@@ -284,6 +284,11 @@ body a:hover {
   font-size: 15px;
 }
 
+.main-dashboard-container .maincontent .outer-panel .inner-panel .panel-content .chart {
+  height: 300px;
+  max-width: 100%;
+}
+
 .main-dashboard-container .maincontent .outer-panel .inner-panel .nostock {
   padding: 5px;
   color: #bdc3c7;

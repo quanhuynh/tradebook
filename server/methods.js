@@ -39,5 +39,18 @@ Meteor.methods({
       //[Name, Ask, Bid, Day Change, Day's Low, Day's High, 52-Week Low, 52-Week High, Volume]
     });
     return data[0];
-  }
+  },
+  getHistorical: function(symbol) {
+    var end = new Date();
+    var start = new Date(end);
+    start.setDate(start.getDate() - 365);
+
+    var data = YahooFinance.historical({
+      symbol: symbol,
+      from: start,
+      to: end
+    });
+
+    return data;
+  } 
 });

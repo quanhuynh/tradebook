@@ -66,6 +66,9 @@ Template.maindashboard.events({
     Meteor.call("getQuote", symInput.value, function(error, result) {
       Session.set('quickquote', result);
     });
+    Meteor.call("getHistorical", symInput.value, function(error, result) {
+      Session.set('historical', result);
+    });
     symInput.value = "";
   }
 });

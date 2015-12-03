@@ -34,5 +34,33 @@ Template.maindashboard.helpers ({
 		if (Session.get('quickquote') !== undefined) {
 			return Session.get('quickquote')[info];
 		}
+	},
+	showQuoteChart: function() {
+		var data = Session.get('historical');
+		if (data) {
+			series = [{
+				type: 'area',
+				data: data.map(function(element) {
+					return {
+						x: element.date.getTime(),
+						y: element.close
+					}
+				}),
+				tooltip: {
+					valueDecimals: 2
+				},
+				threshold: null
+			}];
+			//console.log(series);
+			$('.chart').highcharts('StockChart', {
+				rangeSelector: {
+					selected: 1
+				},
+				title: {
+					text: data[data.length-1].symbol
+				},
+				series: series
+			});
+		}
 	}
 });
