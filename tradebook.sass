@@ -42,8 +42,13 @@ body
 		margin: 0 auto
 		margin-top: 100px
 		text-align: center
+		#logo
+			font:
+				size: 50px
+				weight: 700
+			color: white
 		img
-			width: 300px
+			width: 200px
 			padding: 25px
 	.user-form
 		h3
@@ -173,15 +178,15 @@ body
 				border: solid medium $emerald
 				padding: 15px
 				.panel-header
+					display: flex
+					justify-content: space-between
 					width: 100%
 					color: $emerald
 					h3
 						margin: 0
 						font-weight: 600
-						display: inline
 					.search-field
 						width: 40%
-						float: right
 						font-size: 15px
 						input
 							width: 100%
@@ -191,15 +196,15 @@ body
 				.panel-content
 					padding-top: 10px
 					transition: linear 0.2s
-					.quickquote
-						display: inline
-						padding: 5px
 					.quickquote-title
 						display: inherit
 						font:
 							size: 15px
 							weight: 600
-					.quickquote-prices
+					.quickquote-row
+						display: flex
+						justify-content: space-around
+					.qq-text
 						font:
 							size: 15px
 					.chart

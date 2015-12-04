@@ -43,7 +43,7 @@ Meteor.methods({
   getHistorical: function(symbol) {
     var end = new Date();
     var start = new Date(end);
-    start.setDate(start.getDate() - 365);
+    start.setDate(start.getDate() - 366);
 
     var data = YahooFinance.historical({
       symbol: symbol,

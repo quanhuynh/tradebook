@@ -54,25 +54,44 @@
 						</div>
 						{{#if showQuickQuote}}
 						<div class="panel-content"> 
-							<div class="quickquote quickquote-title"> {{quickQuote "name"}} | {{quickQuote "symbol"}} </div>
-							<div class="quickquote quickquote-prices">
+							<div class="quickquote-title"> {{quickQuote "name"}} | {{quickQuote "symbol"}} </div>
+							<div class="quickquote-row">
+								<div class="qq-text">
 								Ask: ${{quickQuote "ask"}}
+								</div>
+								<div class="qq-text">
+									Bid: ${{quickQuote "bid"}}
+								</div>
+								<div class="qq-text">
+									Volume: {{quickQuote "volume"}}
+								</div>
+								<div class="qq-text">
+									Day Change: {{quickQuote "change"}}
+								</div>
 							</div>
-							<div class="quickquote quickquote-prices">
-								Bid: ${{quickQuote "bid"}}
-							</div>
-							<div class="quickquote quickquote-prices">
-								Volume: {{quickQuote "volume"}}
-							</div>
-							<div class="quickquote quickquote-prices">
-								Day Change: {{quickQuote "change"}}
-							</div>
-							
 							<div class="chart"> {{showQuoteChart}}
 							</div>
+							<div class="quickquote-row">
+								<div class="qq-text"> Day's Low: ${{quickQuote "daysLow"}}
+								</div>
+								<div class="qq-text"> Day's High: ${{quickQuote "daysHigh"}}
+								</div>
+								<div class="qq-text"> 52-Week Low: ${{quickQuote "52WeekLow"}}
+								</div>
+								<div class="qq-text"> 52-Week High: ${{quickQuote "52WeekHigh"}}
+								</div>
+							</div>
+							<div class="quickquote-title"> Actions </div>
+							<div class="quickquote-row">
+								<a class="qq-text"> Buy </a>
+								<a class="qq-text"> Sell </a>
+								<a class="qq-text"> Add to watchlist </a>
+								<a class="qq-text" href="{{yahooFinanceLink}}" target="_blank"> More Info. (Yahoo Finance) </a>
+							</div>
 						</div>
+						
 						{{else}}
-						<div class="nostock"> Nothing to show. Search for a stock! </div>
+						<div class="nostock"> Nothing to show! </div>
 						{{/if}}
 
 					</div>
