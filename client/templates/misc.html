@@ -1,5 +1,9 @@
 <template name="header">
 	<div class="topbar">
+		<div class="logo">
+			<img src="/logo-first-prototype.png"/>
+			<div id="logo"> Tradebook </div>
+		</div>
 		<div class="selectors">
 			<div class="username selector"> {{username}} </div>
 			<div class="portlink selector"> Portfolios </div>
@@ -24,16 +28,19 @@
 <template name="sidebar">
 	<div class="col-sm-2 sidebar">
 		<div class="sidebar-section">
-			<div class="section-header"> Trading </div>
-			<a> Buy </a>
-			<a> Sell </a>
+			<div class="section-header"> Portfolio </div>
+			<a> Trade </a>
+			<a> Order Status </a>
+			<a> Balances </a>
+			<a> Holdings </a>
+			<a> Watchlist </a>
+
 		</div>
 		<div class="sidebar-section">
 			<div class="section-header"> Research </div>
 			<a> Resource 1 </a>
 			<a> Resource 2 </a>
 			<a> Resource 3 </a>
-			<a> Resource 4 </a>
 		</div>
 		<div class="sidebar-section">
 			<div class="section-header"> About </div>

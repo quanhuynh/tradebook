@@ -23,16 +23,18 @@ Template.portfoliosdashboard.events({
   'click .portfolio': function(event) {
     event.preventDefault();
     var portfolioName = event.currentTarget.getAttribute('data-name');
-    var oldCurrent = TradePortfolios.findOne({current:true});
-    if (!(oldCurrent === undefined)) {
-      TradePortfolios.update(oldCurrent._id, {
-        $set: {current: false}
+    if (event.target.className != "remove") {
+      var oldCurrent = TradePortfolios.findOne({current:true});
+      if (!(oldCurrent === undefined)) {
+        TradePortfolios.update(oldCurrent._id, {
+          $set: {current: false}
+        });
+      }
+      TradePortfolios.update(TradePortfolios.findOne({name:portfolioName})._id, {
+        $set: {current: true}
       });
+      Router.go('dashboard');
     }
-    TradePortfolios.update(TradePortfolios.findOne({name:portfolioName})._id, {
-      $set: {current: true}
-    });
-    Router.go('dashboard');
   },
 
   'click .remove': function(event) {
