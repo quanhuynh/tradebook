@@ -75,17 +75,41 @@
 				<tbody>
 					<tr>
 						<td>
-							<input id="trade-buy" name="transaction" type="radio" />
-							<label for="trade-buy"> Buy </label>
-							<input id="trade-sell" name="transaction" type="radio" />
-							<label for="trade-sell"> Sell </label>
+							<div class="option">
+								<input id="trade-buy" name="transaction" type="radio" />
+								<label for="trade-buy"> Buy </label>
+							</div>
+							<div class="option">
+								<input id="trade-sell" name="transaction" type="radio" />
+								<label for="trade-sell"> Sell </label>
+							</div>
 						</td>
 						<td>
 							<input id="trade-shares" name="shares" type="text" required/>
 						</td>
+						<td>
+							<input id="trade-symbol" name="symbol" type="text" required/>
+						</td>
+						<td>
+							<div class="option">
+								<input id="trade-price-market" name="price-option" type="radio" />
+								<label for="trade-price-market"> Market </label>
+							</div>
+							<div class="option">
+								<input id="trade-price-limit" name="price-option" type="radio" />
+								<label for="trade-price-limit"> Limit </label>
+							</div>
+							<div class="option">
+								<input id="trade-price-stop" name="price-option" type="radio" />
+								<label for="trade-price-stop"> Stop </label>
+							</div>
+						</td>
 					</tr>
 				</tbody>
 			</table>
+			<form class="trade-submit">
+				<input type="submit" name="trade_submit" value="Preview Trade"/>
+			</form>
 		</div>
 	</div>
 </template>

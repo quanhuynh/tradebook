@@ -1,12 +1,11 @@
 <template name="header">
 	<div class="topbar">
-		<div class="logo">
+		<a class="logo" href="{{pathFor route='home'}}">
 			<img src="/logo-first-prototype.png"/>
 			<div id="logo"> Tradebook </div>
-		</div>
+		</a>
 		<div class="selectors">
 			<div class="username selector"> {{username}} </div>
-			<div class="portlink selector"> Portfolios </div>
 			<div class="logout selector"> Logout </div>
 		</div>
 	</div>
@@ -29,7 +28,7 @@
 	<div class="col-sm-2 sidebar">
 		<div class="sidebar-section">
 			<div class="section-header"> Portfolio </div>
-			<a> Trade </a>
+			<a href="{{pathFor route='trade'}}"> Trade </a>
 			<a> Order Status </a>
 			<a> Balances </a>
 			<a> Holdings </a>
