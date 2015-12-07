@@ -145,45 +145,48 @@ body
 		width: 70%
 
 .trade-container
-	.trade-table
-		width: 80%
-		margin: 100px auto 50px auto
-		th, td
-			padding: 10px 20px 10px 20px
-			border: thin solid $silver
-		th
-			font:
-				size: 20px
-				weight: 400
-		td
-			label
-				font:
-					size: 15px
-					weight: 300
-			input
-				padding: 5px
-				font:
-					size: 15px
-					weight: 300
-
-
-	.trade-submit
-		display: flex
-		justify-content: center
+	.trade-form
 		font:
 			size: 15px
 			weight: 600
 		color: $emerald
-		input
-			padding: 10px
-			margin: 0 auto
-			background: transparent
-			border: medium solid $emerald
-			border-radius: 5px
-			transition: linear 0.1s
-			&:hover
-				background: $emerald
-				color: white
+		.trade-submit
+			display: inline-block
+			text-align: center
+			width: 100%
+			input
+				padding: 10px
+				margin: 0 auto
+				background: transparent
+				border: medium solid $emerald
+				border-radius: 5px
+				transition: linear 0.1s
+				&:hover
+					background: $emerald
+					color: white
+			.form-error
+				color: $pomegranate-red
+				display: none
+		.trade-table
+			width: 80%
+			margin: 100px auto 50px auto
+			th, td
+				padding: 10px 20px 10px 20px
+				border: thin solid $silver
+			th
+				font:
+					size: 20px
+					weight: 400
+			td
+				label
+					font:
+						size: 15px
+						weight: 300
+				input
+					padding: 5px
+					font:
+						size: 15px
+						weight: 300
 
 
 

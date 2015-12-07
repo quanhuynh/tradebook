@@ -74,3 +74,31 @@ Template.maindashboard.events({
     symInput.value = "";
   }
 });
+
+Template.trade.events({
+  'submit form': function(event) {
+    event.preventDefault();
+
+    var tradeOption = $('input[name=trade-option]:checked').val();
+    var priceOption = $('input[name=price-option]:checked').val();
+    
+    if (tradeOption === "buy") {
+
+    } else if (tradeOption === "sell") {
+
+    } else if (tradeOption === undefined) {
+      //deal with undefined tradeOption
+    }
+
+    if (priceOption === "market") {
+
+    } else if (priceOption === "limit") {
+
+    } else if (priceOption === "stop") {
+
+    } else if (tradeOption === undefined) {
+      //deal with undefined tradeOption
+    }
+  }
+
+});
