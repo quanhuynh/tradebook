@@ -82,22 +82,32 @@ Template.trade.events({
     var tradeOption = $('input[name=trade-option]:checked').val();
     var priceOption = $('input[name=price-option]:checked').val();
     
-    if (tradeOption === "buy") {
+    if (tradeOption === undefined || priceOption === undefined) {
+      //deal with invalid option
+    
+    } else {
 
-    } else if (tradeOption === "sell") {
+      var shares = $('input[name=trade-shares]').val();
+      var symbol = $('input[name=trade-symbol]').val();
+      
+      if (isNaN(shares)) {
+        //deal with invalid shares and symbol
+      }
 
-    } else if (tradeOption === undefined) {
-      //deal with undefined tradeOption
-    }
+      if (tradeOption === "buy") {
 
-    if (priceOption === "market") {
+      } else if (tradeOption === "sell") {
 
-    } else if (priceOption === "limit") {
+      } 
+      
+      if (priceOption === "market") {
 
-    } else if (priceOption === "stop") {
+      } else if (priceOption === "limit") {
 
-    } else if (tradeOption === undefined) {
-      //deal with undefined tradeOption
+      } else if (priceOption === "stop") {
+      
+      }
+
     }
   }
 
