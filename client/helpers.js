@@ -21,6 +21,8 @@ Template.header.helpers ({
 	}
 });
 
+
+
 Template.maindashboard.helpers ({
 	portfolio: function() {
 		if (TradePortfolios.findOne({current:true})) {
@@ -30,11 +32,13 @@ Template.maindashboard.helpers ({
 	showQuickQuote: function() {
 		return Session.get('quickquote') !== undefined && Session.get('quickquote').name !== null;
 	},
+
 	quickQuote: function(info) {
 		if (Session.get('quickquote') !== undefined) {
 			return Session.get('quickquote')[info];
 		}
 	},
+
 	showQuoteChart: function() {
 		var data = Session.get('historical');
 		if (data !== undefined && data.length > 0) {
@@ -63,6 +67,7 @@ Template.maindashboard.helpers ({
 			});
 		}
 	},
+
 	yahooFinanceLink: function() {
 		if (Session.get('quickquote') !== undefined && Session.get('quickquote').name !== null) {
 			return "http://finance.yahoo.com/q?s=" + Session.get('quickquote')['symbol'];

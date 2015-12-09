@@ -61,6 +61,7 @@ Template.newportfolio.events({
   }
 });
 
+
 Template.maindashboard.events({
   'submit .search-field': function(event) {
     event.preventDefault();
@@ -87,12 +88,8 @@ Template.trade.events({
     
     } else {
 
-      var shares = $('input[name=trade-shares]').val();
-      var symbol = $('input[name=trade-symbol]').val();
-      
-      if (isNaN(shares)) {
-        //deal with invalid shares and symbol
-      }
+      var shares = $('input[name=trade_shares]').val();
+      var symbol = $('input[name=trade_symbol]').val();
 
       if (tradeOption === "buy") {
 

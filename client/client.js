@@ -56,3 +56,18 @@ Template.registerform.onRendered(function() {
 Template.newportfolio.onRendered(function() {
   $('.new-portfolio-form').validate();
 });
+
+Template.trade.onRendered(function() {
+  var tradeValidator = $('.trade-form').validate({
+    rules: {
+      trade_shares: {
+        number: true
+      },
+    },
+    messages: {
+      trade_shares: {
+        number: "Please enter numeric value"
+      }
+    }
+  });
+});
