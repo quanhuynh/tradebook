@@ -106,6 +106,14 @@ Template.trade.events({
       }
 
     }
+  },
+
+  'click .lookup': function(event) {
+    event.preventDefault();
+    var symInput = $('input[name=trade_symbol]').val();
+    Meteor.call("getQuote", symInput, function(error, result) {
+      Session.set('quickquote', result);
+    });
   }
 
 });

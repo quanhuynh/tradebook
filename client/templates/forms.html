@@ -90,6 +90,7 @@
 							</td>
 							<td>
 								<input id="trade-symbol" name="trade_symbol" type="text" required/>
+								<a class="lookup"> Look up symbol </a>
 							</td>
 							<td>
 								<div class="option">
@@ -112,6 +113,25 @@
 					<input type="submit" name="trade_submit" value="Preview Trade"/>
 				</div>
 			</form>
+			
+			{{#if showQuickQuote}}
+			<div class="quote-chart">
+				<h3> Stock Information </h3>
+				<div class="chart-title"> {{quickQuote "name"}} | {{quickQuote "symbol"}} </div>
+				<div class="col-sm-6"> 
+					<div class="chart-text"> Ask: ${{quickQuote "ask"}} </div>
+					<div class="chart-text"> Bid: ${{quickQuote "bid"}} </div>
+					<div class="chart-text"> Volume: {{quickQuote "volume"}} </div>
+					<div class="chart-text"> Day Change: {{quickQuote "change"}} </div>
+				</div>
+				<div class="col-sm-6">
+					<div class="chart-text"> Day's Low: ${{quickQuote "daysLow"}} </div>
+					<div class="chart-text"> Day's High: ${{quickQuote "daysHigh"}} </div>
+					<div class="chart-text"> 52-Week Low: ${{quickQuote "52WeekLow"}} </div>
+					<div class="chart-text"> 52-Week High: ${{quickQuote "52WeekHigh"}} </div>
+				</div>
+			</div>
+			{{/if}}
 		</div>
 	</div>
 </template>

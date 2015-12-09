@@ -21,7 +21,46 @@ Template.header.helpers ({
 	}
 });
 
+Template.trade.helpers({
+	showQuickQuote: function() {
+		return Session.get('quickquote') !== undefined && Session.get('quickquote').name !== null;
+	},
 
+	quickQuote: function(info) {
+		if (Session.get('quickquote') !== undefined) {
+			return Session.get('quickquote')[info];
+		}
+	},
+
+	showQuoteChart: function() {
+		var data = Session.get('historical');
+		if (data !== undefined && data.length > 0) {
+			series = [{
+				type: 'area',
+				data: data.map(function(element) {
+					return {
+						x: element.date.getTime(),
+						y: element.close
+					}
+				}),
+				tooltip: {
+					valueDecimals: 2
+				},
+				threshold: null
+			}];
+			//console.log(series);
+			$('.chart').highcharts('StockChart', {
+				rangeSelector: {
+					selected: 1
+				},
+				title: {
+					text: data[data.length-1].symbol
+				},
+				series: series
+			});
+		}
+	}
+});
 
 Template.maindashboard.helpers ({
 	portfolio: function() {
