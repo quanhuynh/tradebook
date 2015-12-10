@@ -32,6 +32,13 @@ Meteor.methods({
     stockObj.quantity -= quantity;
     stockObj.avgBuyPrice = stockObj.costBasis/stockObj.quantity;
   },
+  getCompanyName: function(symbol) {
+    var data = YahooFinance.snapshot({
+      symbols: [symbol],
+      fields: ['n']
+    });
+    return data[0];
+  },
   getQuote: function(symbol) {
     var data = YahooFinance.snapshot({
       symbols: [symbol],

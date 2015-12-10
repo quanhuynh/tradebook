@@ -84,14 +84,26 @@ Template.trade.events({
     var priceOption = $('input[name=price-option]:checked').val();
     
     if (tradeOption === undefined || priceOption === undefined) {
-      //deal with invalid option
+      alert("Please select valid options");
     
     } else {
 
       var shares = $('input[name=trade_shares]').val();
       var symbol = $('input[name=trade_symbol]').val();
 
+      var companyName;
+      Meteor.call("getCompanyName", symbol, function(error, result) {
+        if (result.name === null) {
+          alert("Company does not exist");
+          return
+        } else {
+          companyName = result.name;
+        }
+      });
+
+
       if (tradeOption === "buy") {
+                
 
       } else if (tradeOption === "sell") {
 
