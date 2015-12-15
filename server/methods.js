@@ -19,11 +19,16 @@ Meteor.methods({
   deletePortfolio: function(portfolioId) {
     TradePortfolios.remove(portfolioId);
   },
-  buyStock: function(portfolio, companyName, quantity, price) {
+  buyStock: function(portfolio, symbol, companyName, quantity, price) {
     var stockObj = TradePortfolios.findOne({name:portfolio}).holdings[companyName];
-    stockObj.costBasis += quantity*price + fee8;
+    if (stockObj === undefined) {
+      stockObj = new Stock(symbol, quantity, price);
+      holdings[companyName] = stockObj;
+    }
+    stockObj.costBasis += quantity*price + fee;
     stockObj.quantity += quantity;
     stockObj.avgBuyPrice = stockObj.costBasis/stockObj.quantity;
+    
   },
   sellStock: function(portfolio, companyName, quantity, price) {
     var stockObj = TradePortfolios.findOne({name:portfolio}).holdings[companyName];

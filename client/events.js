@@ -90,32 +90,48 @@ Template.trade.events({
 
       var shares = $('input[name=trade_shares]').val();
       var symbol = $('input[name=trade_symbol]').val();
-
+      var portfolioName;
       var companyName;
+
+
+
+
+
+      if (TradePortfolios.findOne({current:true})) {
+        portfolioName = TradePortfolios.findOne({current: true}).name;
+      }
+
       Meteor.call("getCompanyName", symbol, function(error, result) {
-        if (result.name === null) {
-          alert("Company does not exist");
-          return
-        } else {
-          companyName = result.name;
+        if (result.name !== null) {
+          Session.set('tradingName', companyName);
+          console.log(companyName);
         }
       });
+      console.log(Session.get('tradingName'));
 
 
-      if (tradeOption === "buy") {
-                
 
-      } else if (tradeOption === "sell") {
 
-      } 
-      
-      if (priceOption === "market") {
 
-      } else if (priceOption === "limit") {
+      if (companyName !== undefined) {
+        if (tradeOption === "buy") {
+          
 
-      } else if (priceOption === "stop") {
-      
+        } else if (tradeOption === "sell") {
+
+        } 
+        
+        if (priceOption === "market") {
+
+        } else if (priceOption === "limit") {
+
+        } else if (priceOption === "stop") {
+        
+        }
+      } else {
+        alert("Symbol does not match any company");
       }
+      
 
     }
   },
