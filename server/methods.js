@@ -1,3 +1,5 @@
+var fee = 5;
+
 /* ************** */
 /* METEOR METHODS */
 /* ************** */
@@ -8,41 +10,48 @@ Meteor.methods({
     }
     TradePortfolios.insert({
       name: name,
-      balance: balance,
+      originalBalance: Number(balance),
+      available: Number(balance),
       description: description,
       createdBy: Meteor.userId(),
       username: Meteor.user().username,
-      holdings: {},
       current: false
     });
   },
   deletePortfolio: function(portfolioId) {
+    var portfolioName = TradePortfolios.findOne({_id:portfolioId}).name;
     TradePortfolios.remove(portfolioId);
+    Holdings.remove({portfolioName:portfolioName});
   },
-  buyStock: function(portfolio, symbol, companyName, quantity, price) {
-    var stockObj = TradePortfolios.findOne({name:portfolio}).holdings[companyName];
-    if (stockObj === undefined) {
-      stockObj = new Stock(symbol, quantity, price);
-      holdings[companyName] = stockObj;
+  buyStock: function(symbol, companyName, quantity, price) {
+    var portfolio = TradePortfolios.findOne({current:true});
+    var curHolding = Holdings.findOne({symbol:symbol});
+
+    if (curHolding === undefined) {
+      Holdings.insert({
+        portfolioName: portfolio.name,
+        createdBy: Meteor.userId(),
+        company: companyName,
+        symbol: symbol,
+        quantity: Number(quantity),
+        costBasis: Number(quantity)*Number(price) + fee,
+        avgBuyPrice: (Number(quantity)*Number(price) + fee) / quantity
+      });
+      var newHolding = Holdings.findOne({company:companyName});
+      var newAvailable = portfolio.available - newHolding.costBasis;
+      TradePortfolios.update(portfolio._id, {
+        $set: {available: newAvailable}
+      });
+
+    } else {
+
     }
-    stockObj.costBasis += quantity*price + fee;
-    stockObj.quantity += quantity;
-    stockObj.avgBuyPrice = stockObj.costBasis/stockObj.quantity;
+
     
   },
   sellStock: function(portfolio, companyName, quantity, price) {
-    var stockObj = TradePortfolios.findOne({name:portfolio}).holdings[companyName];
-    stockObj.costBasis += fee;
-    stockObj.costBasis -= quantity*price;
-    stockObj.quantity -= quantity;
-    stockObj.avgBuyPrice = stockObj.costBasis/stockObj.quantity;
-  },
-  getCompanyName: function(symbol) {
-    var data = YahooFinance.snapshot({
-      symbols: [symbol],
-      fields: ['n']
-    });
-    return data[0];
+    
+    
   },
   getQuote: function(symbol) {
     var data = YahooFinance.snapshot({

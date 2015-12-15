@@ -1,4 +1,5 @@
 Meteor.subscribe('tradeportfolios');
+Meteor.subscribe('holdings');
 
 Template.loginform.onRendered(function() {
   var loginValidator = $('.login-form').validate({

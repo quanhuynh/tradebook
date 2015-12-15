@@ -2,11 +2,13 @@ Template.header.events({
   'click .logout': function(event) {
     event.preventDefault();
     Meteor.logout();
+    Session.keys = {};
     Router.go('loading');
     setTimeout(function(){Router.go('home')}, 1500);
   },
-  'click .portlink': function(event) {
+  'click .logo': function(event) {
     event.preventDefault();
+    Session.keys = {};
     Router.go('home');
   }
 });
@@ -90,48 +92,28 @@ Template.trade.events({
 
       var shares = $('input[name=trade_shares]').val();
       var symbol = $('input[name=trade_symbol]').val();
-      var portfolioName;
       var companyName;
 
-
-
-
-
-      if (TradePortfolios.findOne({current:true})) {
-        portfolioName = TradePortfolios.findOne({current: true}).name;
-      }
-
-      Meteor.call("getCompanyName", symbol, function(error, result) {
+      Meteor.call("getQuote", symbol, function(error, result) {
         if (result.name !== null) {
-          Session.set('tradingName', companyName);
-          console.log(companyName);
+          companyName = result.name;
+
+          if (companyName !== undefined) {
+            if (tradeOption === "buy") {
+              console.log("Buying " + companyName);
+              var ask = result.ask;
+              Meteor.call("buyStock", symbol, companyName, shares, ask);
+
+            } else if (tradeOption === "sell") {
+
+            }
+
+          } else {
+            alert("Symbol does not match any company");
+          }
         }
+
       });
-      console.log(Session.get('tradingName'));
-
-
-
-
-
-      if (companyName !== undefined) {
-        if (tradeOption === "buy") {
-          
-
-        } else if (tradeOption === "sell") {
-
-        } 
-        
-        if (priceOption === "market") {
-
-        } else if (priceOption === "limit") {
-
-        } else if (priceOption === "stop") {
-        
-        }
-      } else {
-        alert("Symbol does not match any company");
-      }
-      
 
     }
   },
