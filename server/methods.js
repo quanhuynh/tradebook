@@ -50,7 +50,24 @@ Meteor.methods({
     
   },
   sellStock: function(portfolio, companyName, quantity, price) {
-    
+    var portfolio = TradePortfolios.findOne({current:true});
+    var curHolding = Holdings.findOne({symbol:symbol});
+
+    if (curHolding === undefined) {
+      //doesn't own the stock
+    } else {
+      if (quantity > curHolding.quantity) {
+        //selling too much
+      } else if (quantity == curHolding.quantity) {
+        //selling everything -> remove holding
+        var rev = quantity*price;
+        var newAvailable = portfolio.available + rev;
+        Holdings.remove(curHolding._id);
+        TradePortfolios.update(portfolio._id, {
+          $set: {available:newAvailable}
+        });
+      }
+    }
     
   },
   getQuote: function(symbol) {
