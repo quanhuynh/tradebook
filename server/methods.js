@@ -70,6 +70,13 @@ Meteor.methods({
     }
     
   },
+  getName: function(symbol) {
+    var data = YahooFinance.snapshot({
+      symbols: [symbol],
+      fields: ['n']
+    });
+    return data[0];
+  },
   getQuote: function(symbol) {
     var data = YahooFinance.snapshot({
       symbols: [symbol],

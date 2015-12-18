@@ -6,6 +6,9 @@
 		</a>
 		<div class="selectors">
 			<div class="username selector"> {{username}} </div>
+			{{#if dashboardable}}
+				<a href="{{pathFor route='dashboard'}}" class="to-dashboard selector"> Dashboard </a>
+			{{/if}}
 			<div class="logout selector"> Logout </div>
 		</div>
 	</div>

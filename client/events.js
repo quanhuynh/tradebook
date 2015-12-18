@@ -13,6 +13,12 @@ Template.header.events({
   }
 });
 
+Template.sidebar.events({
+  'click a': function(event) {
+    Session.set('previewMode', undefined);
+  }
+});
+
 Template.portfoliosdashboard.events({
   /*
   'click .edit': function(event) {
@@ -27,7 +33,7 @@ Template.portfoliosdashboard.events({
     var portfolioName = event.currentTarget.getAttribute('data-name');
     if (event.target.className != "remove") {
       var oldCurrent = TradePortfolios.findOne({current:true});
-      if (!(oldCurrent === undefined)) {
+      if (oldCurrent !== undefined) {
         TradePortfolios.update(oldCurrent._id, {
           $set: {current: false}
         });
@@ -79,42 +85,31 @@ Template.maindashboard.events({
 });
 
 Template.trade.events({
-  'submit form': function(event) {
+  'submit .trade-form': function(event) {
     event.preventDefault();
-
     var tradeOption = $('input[name=trade-option]:checked').val();
-    var priceOption = $('input[name=price-option]:checked').val();
-    
-    if (tradeOption === undefined || priceOption === undefined) {
+    var symbol = $('input[name=trade_symbol').val();
+    var shares = $('input[name=trade_shares').val();
+
+    if (tradeOption === undefined) {
       alert("Please select valid options");
-    
     } else {
-
-      var shares = $('input[name=trade_shares]').val();
-      var symbol = $('input[name=trade_symbol]').val();
-      var companyName;
-
-      Meteor.call("getQuote", symbol, function(error, result) {
-        if (result.name !== null) {
-          companyName = result.name;
-
-          if (companyName !== undefined) {
-            if (tradeOption === "buy") {
-              console.log("Buying " + companyName);
-              var ask = result.ask;
-              Meteor.call("buyStock", symbol, companyName, shares, ask);
-
-            } else if (tradeOption === "sell") {
-
+      Meteor.call("getName", symbol, function(error, result) {
+        if (result !== null) {
+          if (result.name !== undefined) {
+            Session.set("previewMode", true);
+            var currentTrade = {
+              option: tradeOption,
+              name: result.name,
+              shares: shares
             }
-
+            Session.set("currentTrade", currentTrade);
+            console.log("Moving on to preview");
           } else {
             alert("Symbol does not match any company");
           }
         }
-
       });
-
     }
   },
 
@@ -123,6 +118,20 @@ Template.trade.events({
     var symInput = $('input[name=trade_symbol]').val();
     Meteor.call("getQuote", symInput, function(error, result) {
       Session.set('quickquote', result);
+    });
+  },
+
+  'submit .preview': function(event) {
+    event.preventDefault();
+    var tradeOption = $('input[name=trade-option]:checked').val();
+    var symbol = $('input[name=trade_symbol').val();
+    var shares = $('input[name=trade_shares').val();
+    var companyName;
+    
+    Meteor.call("getQuote", symbol, function(error, result) {
+      companyName = result.name;
+      var method = tradeOption + "Stock";
+      Meteor.call(method, symbol, companyName, shares, result.ask);
     });
   }
 

@@ -63,75 +63,91 @@
 		{{> header}}
 		{{> sidebar}}
 		<div class="col-sm-10 trade-container">
-			<form class="trade-form">
-				<table class="trade-table">
-					<thead> 
-						<tr>
-							<th> Action </th>
-							<th> Share Units </th>
-							<th> Symbol </th>
-							<th> Price Option </th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>
-								<div class="option">
-									<input id="trade-buy" name="trade-option" type="radio" value="buy" />
-									<label for="trade-buy"> Buy </label>
-								</div>
-								<div class="option">
-									<input id="trade-sell" name="trade-option" type="radio" value="sell" />
-									<label for="trade-sell"> Sell </label>
-								</div>
-							</td>
-							<td>
-								<input id="trade-shares" name="trade_shares" type="text" required/>
-							</td>
-							<td>
-								<input id="trade-symbol" name="trade_symbol" type="text" required/>
-								<a class="lookup"> Look up symbol </a>
-							</td>
-							<td>
-								<div class="option">
-									<input id="trade-price-market" name="price-option" type="radio" value="market" />
-									<label for="trade-price-market"> Market </label>
-								</div>
-								<div class="option">
-									<input id="trade-price-limit" name="price-option" type="radio" value="limit" />
-									<label for="trade-price-limit"> Limit </label>
-								</div>
-								<div class="option">
-									<input id="trade-price-stop" name="price-option" type="radio" value="stop"/>
-									<label for="trade-price-stop"> Stop </label>
-								</div>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				<div class="trade-submit">
-					<input type="submit" name="trade_submit" value="Preview Trade"/>
-				</div>
-			</form>
-			
-			{{#if showQuickQuote}}
-			<div class="quote-chart">
-				<h3> Stock Information </h3>
-				<div class="chart-title"> {{quickQuote "name"}} | {{quickQuote "symbol"}} </div>
-				<div class="col-sm-6"> 
-					<div class="chart-text"> Ask: ${{quickQuote "ask"}} </div>
-					<div class="chart-text"> Bid: ${{quickQuote "bid"}} </div>
-					<div class="chart-text"> Volume: {{quickQuote "volume"}} </div>
-					<div class="chart-text"> Day Change: {{quickQuote "change"}} </div>
-				</div>
-				<div class="col-sm-6">
-					<div class="chart-text"> Day's Low: ${{quickQuote "daysLow"}} </div>
-					<div class="chart-text"> Day's High: ${{quickQuote "daysHigh"}} </div>
-					<div class="chart-text"> 52-Week Low: ${{quickQuote "52WeekLow"}} </div>
-					<div class="chart-text"> 52-Week High: ${{quickQuote "52WeekHigh"}} </div>
-				</div>
-			</div>
+			{{#if previewMode}}
+				<form class="preview">
+					<div id="tradeType"> Trade Type: {{previewInfo "option"}} </div>
+					<div id="tradeName"> Company Name: {{previewInfo "name"}} </div>
+					<div id="tradeShares"> Shares: {{previewInfo "shares"}} </div>
+					<div id="tradeTotal"> </div>
+					<input type="submit" name="trade_submit" value="Submit Trade"/>
+				</form>
+			{{else}}
+				<form class="trade-form">
+					<table class="trade-table">
+						<thead> 
+							<tr>
+								<th> Action </th>
+								<th> Share Units </th>
+								<th> Symbol </th>
+								<th> Price Option </th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									<div class="option">
+										<input id="trade-buy" name="trade-option" type="radio" value="buy" />
+										<label for="trade-buy"> Buy </label>
+									</div>
+									<div class="option">
+										<input id="trade-sell" name="trade-option" type="radio" value="sell" />
+										<label for="trade-sell"> Sell </label>
+									</div>
+								</td>
+								<td>
+									<input id="trade-shares" name="trade_shares" type="text" required/>
+								</td>
+								<td>
+									<input id="trade-symbol" name="trade_symbol" type="text" required/>
+									<a class="lookup"> Look up symbol </a>
+								</td>
+								<td>
+									<!-- 
+									<div class="option">
+										<input id="trade-price-market" name="price-option" type="radio" value="market" />
+										<label for="trade-price-market"> Market </label>
+									</div>
+									<div class="option">
+										<input id="trade-price-limit" name="price-option" type="radio" value="limit" />
+										<label for="trade-price-limit"> Limit </label>
+									</div>
+									<div class="option">
+										<input id="trade-price-stop" name="price-option" type="radio" value="stop"/>
+										<label for="trade-price-stop"> Stop </label>
+									</div>
+									-->
+									<h5> Price Options Coming Soon! </h5>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="preview-btn">
+						<input type="submit" name="trade_preview" value="Preview Trade"/>
+					</div>
+				</form>
+				{{#if showQuickQuote}}
+					<div class="quote-chart">
+						<h3> Stock Information </h3>
+						<div class="chart-title"> {{quickQuote "name"}} | {{quickQuote "symbol"}} </div>
+						<div class="col-sm-6"> 
+							<div class="chart-text"> Ask: ${{quickQuote "ask"}} </div>
+							<div class="chart-text"> Bid: ${{quickQuote "bid"}} </div>
+							<div class="chart-text"> Volume: {{quickQuote "volume"}} </div>
+							<div class="chart-text"> Day Change: {{quickQuote "change"}} </div>
+						</div>
+						<div class="col-sm-6">
+							<div class="chart-text"> Day's Low: ${{quickQuote "daysLow"}} </div>
+							<div class="chart-text"> Day's High: ${{quickQuote "daysHigh"}} </div>
+							<div class="chart-text"> 52-Week Low: ${{quickQuote "52WeekLow"}} </div>
+							<div class="chart-text"> 52-Week High: ${{quickQuote "52WeekHigh"}} </div>
+						</div>
+					</div>
+				{{/if}}
+
+
 			{{/if}}
+
+			
 		</div>
 	</div>
 </template>

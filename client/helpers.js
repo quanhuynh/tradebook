@@ -18,6 +18,9 @@ Template.header.helpers ({
 		if (Meteor.user()) {
 			return Meteor.user().username;
 		}
+	},
+	dashboardable: function() {
+		return TradePortfolios.findOne({current:true}) !== undefined;
 	}
 });
 
@@ -32,32 +35,18 @@ Template.trade.helpers({
 		}
 	},
 
-	showQuoteChart: function() {
-		var data = Session.get('historical');
-		if (data !== undefined && data.length > 0) {
-			series = [{
-				type: 'area',
-				data: data.map(function(element) {
-					return {
-						x: element.date.getTime(),
-						y: element.close
-					}
-				}),
-				tooltip: {
-					valueDecimals: 2
-				},
-				threshold: null
-			}];
-			//console.log(series);
-			$('.chart').highcharts('StockChart', {
-				rangeSelector: {
-					selected: 1
-				},
-				title: {
-					text: data[data.length-1].symbol
-				},
-				series: series
-			});
+	previewMode: function() {
+		return Session.get('previewMode') !== undefined;
+	},
+
+	previewInfo: function(selector) {
+		if (selector == "total") {
+
+		} else {
+			var currentTrade = Session.get('currentTrade');
+			if (currentTrade !== undefined) {
+				return currentTrade[selector];
+			}
 		}
 	}
 });
@@ -150,4 +139,5 @@ Template.maindashboard.helpers ({
 		}
 		
 	}
+
 });
