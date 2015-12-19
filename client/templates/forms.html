@@ -65,11 +65,29 @@
 		<div class="col-sm-10 trade-container">
 			{{#if previewMode}}
 				<form class="preview">
-					<div id="tradeType"> Trade Type: {{previewInfo "option"}} </div>
-					<div id="tradeName"> Company Name: {{previewInfo "name"}} </div>
-					<div id="tradeShares"> Shares: {{previewInfo "shares"}} </div>
-					<div id="tradeTotal"> </div>
-					<input type="submit" name="trade_submit" value="Submit Trade"/>
+					<h2> Order Preview </h2>
+					<table>
+						<tr>
+							<td id="label">Transaction</td>
+							<td id="info">{{previewInfo "option"}}</td>
+						</tr>
+						<tr>
+							<td id="label">Company Name</td>
+							<td id="info">{{previewInfo "name"}} </td>
+						</tr>
+						<tr>
+							<td id="label">Shares</td>
+							<td id="info">{{previewInfo "shares"}}</td>
+						</tr>
+						<tr>
+							<td id="label"><strong>Total</strong></td>
+							<td id="info"></td>
+						</tr>
+
+					</table>
+					<div class="trade-btn">
+						<input type="submit" name="trade_submit" value="Submit Trade"/>
+					</div>
 				</form>
 			{{else}}
 				<form class="trade-form">
@@ -86,11 +104,11 @@
 							<tr>
 								<td>
 									<div class="option">
-										<input id="trade-buy" name="trade-option" type="radio" value="buy" />
+										<input id="trade-buy" name="trade-option" type="radio" value="Buy" />
 										<label for="trade-buy"> Buy </label>
 									</div>
 									<div class="option">
-										<input id="trade-sell" name="trade-option" type="radio" value="sell" />
+										<input id="trade-sell" name="trade-option" type="radio" value="Sell" />
 										<label for="trade-sell"> Sell </label>
 									</div>
 								</td>
@@ -121,7 +139,7 @@
 							</tr>
 						</tbody>
 					</table>
-					<div class="preview-btn">
+					<div class="trade-btn">
 						<input type="submit" name="trade_preview" value="Preview Trade"/>
 					</div>
 				</form>
