@@ -33,6 +33,11 @@ Meteor.methods({
   BuyStock: function(symbol, companyName, quantity, price) {
     var portfolio = TradePortfolios.findOne({current:true});
     var curHolding = Holdings.findOne({symbol:symbol});
+    var costBasisRep = Number(quantity)*Number(price) + fee;
+    costBasisRep = costBasisRep.toFixed(2);
+    var avgPriceRep = (Number(quantity)*Number(price) + fee) / Number(quantity);
+    avgPriceRep = avgPriceRep.toFixed(2);
+
     if (curHolding === undefined) {
       Holdings.insert({
         portfolioName: portfolio.name,
@@ -40,8 +45,8 @@ Meteor.methods({
         company: companyName,
         symbol: symbol,
         quantity: quantity,
-        costBasis: Number(quantity)*Number(price) + fee,
-        avgBuyPrice: (Number(quantity)*Number(price) + fee) / quantity
+        costBasis: costBasisRep,
+        avgBuyPrice: avgPriceRep
       });
       var newHolding = Holdings.findOne({company:companyName});
       var newAvailable = Number(portfolio.available) - Number(newHolding.costBasis);
@@ -50,7 +55,25 @@ Meteor.methods({
       });
 
     } else {
+      var newQuantity = Number(curHolding.quantity) + Number(quantity);
+      var tradeCostBasis = Number(quantity)*Number(price) + fee;
+      var newCostBasis = Number(curHolding.costBasis) + tradeCostBasis;
+      newCostBasis = newCostBasis.toFixed(2);
+      var newAvgBuyPrice = newCostBasis / newQuantity;
+      newAvgBuyPrice = newAvgBuyPrice.toFixed(2);
 
+      Holdings.update(curHolding._id, {
+        $set: {
+          quantity: newQuantity,
+          costBasis: newCostBasis,
+          avgBuyPrice: newAvgBuyPrice
+        }
+      });
+
+      var newAvailable = Number(portfolio.available) - tradeCostBasis;
+      TradePortfolios.update(portfolio._id, {
+        $set: {available: newAvailable}
+      });
     }
 
     

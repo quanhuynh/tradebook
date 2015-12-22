@@ -1,9 +1,6 @@
 <template name="header">
 	<div class="topbar">
-		<a class="logo" href="{{pathFor route='home'}}">
-			<img src="/logo-first-prototype.png"/>
-			<div id="logo"> Tradebook </div>
-		</a>
+		
 		<div class="selectors">
 			<div class="username selector"> {{username}} </div>
 			{{#if dashboardable}}
@@ -28,7 +25,12 @@
 </template>
 
 <template name="sidebar">
+	
 	<div class="col-sm-2 sidebar">
+		<a class="logo" href="{{pathFor route='home'}}">
+			<img src="/logo-first-prototype.png"/>
+			<div id="logo"> Tradebook </div>
+		</a>
 		<div class="sidebar-section">
 			<div class="section-header"> Portfolio </div>
 			<a href="{{pathFor route='trade'}}"> Trade </a>

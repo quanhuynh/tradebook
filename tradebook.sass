@@ -14,11 +14,13 @@ body
 	right: 0
 	padding: 0
 	margin: 0
+	overflow-x: hidden
 	a
 		color: black
 		outline: 0
 		&:hover
 			text-decoration: none
+			color: black
 
 .ten-col
 	float: right
@@ -234,10 +236,26 @@ body
 	position: fixed
 	height: 100vh
 	top: 0
-	padding-top: 40px
-	z-index: -1
 	background: $emerald
 	color: white
+	.logo
+		color: white
+		display: flex
+		float: left
+		align-items: center
+		padding: 10px
+		img
+			float: left
+			height: 40px
+			width: auto
+			padding: 0 10px 0 10px
+		#logo
+			padding: 0 10px 0 10px
+			font:
+				size: 20px
+				weight: 600
+		&:hover
+			text-decoration: none
 	.sidebar-section
 		padding: 20px
 		width: 100%
@@ -335,11 +353,12 @@ body
 
 .topbar
 	height: 50px
+	line-height: 50px
+	width: 100%
+	float: right
 	background: $emerald
 	color: white
 	font-weight: 600
-	display: flex
-	justify-content: space-between
 	transition: linear 0.2s
 	&:hover
 		background: $nephritis-green
@@ -347,19 +366,6 @@ body
 		color: white
 		&:hover
 			text-decoration: none
-	.logo
-		display: flex
-		float: left
-		padding-left: 25px
-		align-items: center
-		img
-			float: left
-			height: 40px
-			width: auto
-			padding: 0 10px 0 10px
-		#logo
-			padding: 0 10px 0 10px
-			font-size: 20px
 	.selectors
 		display: flex
 		align-items: center

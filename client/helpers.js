@@ -60,19 +60,29 @@ Template.maindashboard.helpers ({
 		}
 	},
 
+	//OVERVIEW
+	overview: function(selector) {
+		if (selector == "available") {
+			if (TradePortfolios.findOne({current:true})) {
+				return Number(TradePortfolios.findOne({current:true}).available).toFixed(2);
+			}
+		}
+		var accountValue = 0;
+		var totalChange;
+		Holdings.find().forEach(function(holding) {
+			var marketPrice;
+			Meteor.call('getAskPrice', holding.symbol, function(error, result) {
+				if (result) {
+					marketPrice = result.ask;
+					
+				}
+			});
+		});
+	},
+
 	//HOLDINGS
 	holdings: function() {
 		return Holdings.find({createdBy: Meteor.userId()});
-	},
-
-	marketPrice: function(symbol) {
-		var marketPrice;
-		Meteor.call('getAskPrice', symbol, function(error, result) {
-			if (result !== null) {
-				marketPrice = result.ask;
-			}
-		});
-		return marketPrice;
 	},
 
 	//QUICK QUOTE

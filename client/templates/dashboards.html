@@ -59,8 +59,8 @@
 								<td> {{quantity}} </td>
 								<td> {{symbol}} </td>
 								<td> {{company}} </td>
-								<td> {{avgBuyPrice}} </td>
-								<td id="num"> {{costBasis}} </td>
+								<td> ${{avgBuyPrice}} </td>
+								<td> ${{costBasis}} </td>
 							</tr>
 							{{/each}}
 						</table>
@@ -78,7 +78,7 @@
 							<div class="quickquote-title"> {{quickQuote "name"}} | {{quickQuote "symbol"}} </div>
 							<div class="quickquote-row">
 								<div class="qq-text">
-								Ask: ${{quickQuote "ask"}}
+									Ask: ${{quickQuote "ask"}}
 								</div>
 								<div class="qq-text">
 									Bid: ${{quickQuote "bid"}}
@@ -104,8 +104,7 @@
 							</div>
 							<div class="quickquote-title"> Actions </div>
 							<div class="quickquote-row">
-								<a class="qq-text"> Buy </a>
-								<a class="qq-text"> Sell </a>
+								<a class="qq-text" href="{{pathFor route='trade'}}"> Trade </a>
 								<a class="qq-text"> Add to watchlist </a>
 								<a class="qq-text" href="{{yahooFinanceLink}}" target="_blank"> More Info. (Yahoo Finance) </a>
 							</div>
