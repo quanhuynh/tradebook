@@ -109,7 +109,7 @@ Meteor.methods({
     return data[0];
   },
 
-  getAskPrice: function(symbols) {
+  getOverview: function(symbols) {
     if (symbols.length == 0) {
       return null;
     }

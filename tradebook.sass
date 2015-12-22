@@ -276,73 +276,74 @@ body
 				text-decoration: none
 
 
-.main-dashboard-container
-	.maincontent
-		background-attachment: scroll
-		padding: 20px
-		.page-title
-			margin: 40px 0 40px 0
-		.outer-panel
-			padding: 10px
-			.inner-panel
-				border: solid medium $emerald
-				padding: 15px
-				.panel-header
-					display: flex
-					justify-content: space-between
-					width: 100%
-					color: $emerald
-					h3
-						margin: 0
-						font-weight: 600
-					.search-field
-						width: 40%
-						font-size: 15px
-						input
-							width: 100%
-							padding-left: 5px
-							border: thin solid $emerald
-							border-radius: 3px
 
-				//TABLE
-				table
-					width: 100%
-					margin-top: 10px
-					th
-						padding: 10px 5px
-						border: thin solid $silver
-						font:
-							size: 15px
+.maincontent
+	background-attachment: scroll
+	padding: 20px
+	//TABLE
+	table
+		width: 100%
+		margin-top: 10px
+		th
+			padding: 10px 5px
+			border: thin solid $silver
+			font:
+				size: 15px
 
-					td
-						border: thin solid $silver
-						font-size: 15px
-						padding: 10px 5px
+		td
+			border: thin solid $silver
+			font-size: 15px
+			padding: 10px 5px
+	.page-title
+		margin: 40px 0 40px 0
+	.outer-panel
+		padding: 10px
+		.inner-panel
+			border: solid medium $emerald
+			padding: 15px
+			.panel-header
+				display: flex
+				justify-content: space-between
+				width: 100%
+				color: $emerald
+				h3
+					margin: 0
+					font-weight: 600
+				.search-field
+					width: 40%
+					font-size: 15px
+					input
+						width: 100%
+						padding-left: 5px
+						border: thin solid $emerald
+						border-radius: 3px
 
-				//QUICK QUOTE//
-				.quickquote-content
-					padding-top: 10px
-					transition: linear 0.2s
-					.quickquote-title
-						display: inherit
-						font:
-							size: 15px
-							weight: 600
-					.quickquote-row
-						display: flex
-						justify-content: space-around
-					.qq-text
-						font:
-							size: 15px
-					.chart
-						height: 300px
-						max-width: 100%
-				.nostock
-					padding: 5px
-					color: $silver
+			
+
+			//QUICK QUOTE//
+			.quickquote-content
+				padding-top: 10px
+				transition: linear 0.2s
+				.quickquote-title
+					display: inherit
 					font:
 						size: 15px
 						weight: 600
+				.quickquote-row
+					display: flex
+					justify-content: space-around
+				.qq-text
+					font:
+						size: 15px
+				.chart
+					height: 300px
+					max-width: 100%
+			.nostock
+				padding: 5px
+				color: $silver
+				font:
+					size: 15px
+					weight: 600
 					
 .error
 	color: $pomegranate-red

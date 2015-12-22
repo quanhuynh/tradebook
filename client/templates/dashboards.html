@@ -56,18 +56,18 @@
 							</tr>
 						</tbody>
 					</table>
-					</div>
-					
+					</div>				
 				</div>
+
 				<div class="col-md-8 outer-panel"> 
 					<div class="inner-panel">
 						<div class="panel-header"> <h3>Holdings</h3> </div>
 						<table>
 							<thead>
 								<tr>
-									<th> Quantity </th>
 									<th> Symbol </th>
 									<th> Company </th>
+									<th> Quantity </th>
 									<th> Average Buy Price </th>
 									<th> Cost Basis </th>
 								</tr>
@@ -75,9 +75,9 @@
 							<tbody>
 								{{#each holdings}}
 								<tr class="holding">
-									<td> {{quantity}} </td>
 									<td> {{symbol}} </td>
 									<td> {{company}} </td>
+									<td> {{quantity}} </td>
 									<td> ${{avgBuyPrice}} </td>
 									<td> ${{costBasis}} </td>
 								</tr>
@@ -86,6 +86,7 @@
 						</table>
 					</div>
 				</div>
+
 				<div class="col-md-6 outer-panel">
 					<div class="inner-panel">
 						<div class="panel-header"> <h3>Quick Quotes </h3>
@@ -136,6 +137,7 @@
 
 					</div>
 				</div>
+
 				<div class="col-md-6 outer-panel">
 					<div class="inner-panel">
 						<div class="panel-header"> <h3>News</h3> </div>

@@ -81,17 +81,22 @@ Template.maindashboard.helpers ({
 		var accountValue = Number(available);
 		var totalChange = 0;
 		var symbols = getSymbols();
-		Meteor.call('getAskPrice', symbols, function(error, result) {
-			if (result !== null && result.length > 0) {
+		Meteor.call('getOverview', symbols, function(error, result) {
+			
+			if (result !== null) {
 				for (var i=0; i<result.length; i++) {
 
 					var cbData = result[i];
 					var curHolding = Holdings.findOne({symbol:cbData.symbol});
 					if (curHolding !== undefined) {
+						//console.log("Doing " + cbData.symbol);
+						//console.log("Current price: " + cbData.ask);
 						var holdingMarketVal = cbData.ask*curHolding.quantity;
+						//console.log("Holding market value: " + holdingMarketVal);
 						accountValue += holdingMarketVal;
+						//console.log("Account Value Change: " + accountValue);
 						totalChange += (holdingMarketVal - Number(curHolding.costBasis));
-						
+						//console.log("Total Change Change: " + totalChange);
 					}
 				}
 				Session.set('accountValue', accountValue);
@@ -215,6 +220,39 @@ Template.maindashboard.helpers ({
 			});
 		}
 		
+	}
+
+});
+
+Template.holdings.helpers({
+	holdings: function() {
+		return Holdings.find({createdBy: Meteor.userId()});
+	},
+
+	holdingsInfo: function() {
+		var symbols = getSymbols();
+		Meteor.call('getOverview', symbols, function(error, result) {
+			
+			if (result !== null) {
+				for (var i=0; i<result.length; i++) {
+
+					var cbData = result[i];
+					var curHolding = Holdings.findOne({symbol:cbData.symbol});
+					if (curHolding !== undefined) {
+						//console.log("Doing " + cbData.symbol);
+						//console.log("Current price: " + cbData.ask);
+						var holdingMarketVal = cbData.ask*curHolding.quantity;
+						//console.log("Holding market value: " + holdingMarketVal);
+						accountValue += holdingMarketVal;
+						//console.log("Account Value Change: " + accountValue);
+						totalChange += (holdingMarketVal - Number(curHolding.costBasis));
+						//console.log("Total Change Change: " + totalChange);
+					}
+				}
+				Session.set('accountValue', accountValue);
+				Session.set('totalChange', totalChange);
+			}
+		});
 	}
 
 });
