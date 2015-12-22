@@ -1,3 +1,5 @@
+
+
 Template.header.events({
   'click .logout': function(event) {
     event.preventDefault();
@@ -101,10 +103,10 @@ Template.trade.events({
             var currentTrade = {
               option: tradeOption,
               name: result.name,
+              symbol: symbol,
               shares: shares
             }
             Session.set("currentTrade", currentTrade);
-            console.log("Moving on to preview");
           } else {
             alert("Symbol does not match any company");
           }
@@ -123,16 +125,24 @@ Template.trade.events({
 
   'submit .preview': function(event) {
     event.preventDefault();
-    var tradeOption = $('input[name=trade-option]:checked').val();
-    var symbol = $('input[name=trade_symbol').val();
-    var shares = $('input[name=trade_shares').val();
-    var companyName;
+    var curTrade = Session.get('currentTrade');
+    if (curTrade !== undefined) {
+      var method = curTrade.option + "Stock";
+      var name = curTrade.name;
+      var symbol = curTrade.symbol;
+      var shares = Number(curTrade.shares);
+
+
+      Meteor.call("getQuote", symbol, function(error, result) {
+        if (result !== null) {
+          Meteor.call(method, symbol, name, shares, result.ask);
+        }
+        
+      });
+
+    }
+
     
-    Meteor.call("getQuote", symbol, function(error, result) {
-      companyName = result.name;
-      var method = tradeOption + "Stock";
-      Meteor.call(method, symbol, companyName, shares, result.ask);
-    });
   }
 
 });

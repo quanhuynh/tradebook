@@ -1,5 +1,10 @@
 var fee = 5;
 
+function formatNum(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+
 /* ************** */
 /* METEOR METHODS */
 /* ************** */
@@ -10,35 +15,36 @@ Meteor.methods({
     }
     TradePortfolios.insert({
       name: name,
-      originalBalance: Number(balance),
-      available: Number(balance),
+      originalBalance: balance,
+      available: balance,
       description: description,
       createdBy: Meteor.userId(),
       username: Meteor.user().username,
       current: false
     });
   },
+
   deletePortfolio: function(portfolioId) {
     var portfolioName = TradePortfolios.findOne({_id:portfolioId}).name;
     TradePortfolios.remove(portfolioId);
     Holdings.remove({portfolioName:portfolioName});
   },
-  buyStock: function(symbol, companyName, quantity, price) {
+
+  BuyStock: function(symbol, companyName, quantity, price) {
     var portfolio = TradePortfolios.findOne({current:true});
     var curHolding = Holdings.findOne({symbol:symbol});
-
     if (curHolding === undefined) {
       Holdings.insert({
         portfolioName: portfolio.name,
         createdBy: Meteor.userId(),
         company: companyName,
         symbol: symbol,
-        quantity: Number(quantity),
+        quantity: quantity,
         costBasis: Number(quantity)*Number(price) + fee,
         avgBuyPrice: (Number(quantity)*Number(price) + fee) / quantity
       });
       var newHolding = Holdings.findOne({company:companyName});
-      var newAvailable = portfolio.available - newHolding.costBasis;
+      var newAvailable = Number(portfolio.available) - Number(newHolding.costBasis);
       TradePortfolios.update(portfolio._id, {
         $set: {available: newAvailable}
       });
@@ -49,7 +55,8 @@ Meteor.methods({
 
     
   },
-  sellStock: function(portfolio, companyName, quantity, price) {
+
+  SellStock: function(portfolio, companyName, quantity, price) {
     var portfolio = TradePortfolios.findOne({current:true});
     var curHolding = Holdings.findOne({symbol:symbol});
 
@@ -77,6 +84,14 @@ Meteor.methods({
     });
     return data[0];
   },
+
+  getAskPrice: function(symbol) {
+    var data = YahooFinance.snapshot({
+      symbols: [symbol],
+      fields: ['a']
+    });
+  },
+
   getQuote: function(symbol) {
     var data = YahooFinance.snapshot({
       symbols: [symbol],
@@ -85,6 +100,7 @@ Meteor.methods({
     });
     return data[0];
   },
+
   getHistorical: function(symbol) {
     var end = new Date();
     var start = new Date(end);

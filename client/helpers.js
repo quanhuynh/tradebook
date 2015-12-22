@@ -1,3 +1,5 @@
+
+
 Template.loginform.helpers({
 	moveToPortfolios: function() {
 		Router.go('portfoliosdashboard');
@@ -57,6 +59,23 @@ Template.maindashboard.helpers ({
 			return TradePortfolios.findOne({current: true}).name;
 		}
 	},
+
+	//HOLDINGS
+	holdings: function() {
+		return Holdings.find({createdBy: Meteor.userId()});
+	},
+
+	marketPrice: function(symbol) {
+		var marketPrice;
+		Meteor.call('getAskPrice', symbol, function(error, result) {
+			if (result !== null) {
+				marketPrice = result.ask;
+			}
+		});
+		return marketPrice;
+	},
+
+	//QUICK QUOTE
 	showQuickQuote: function() {
 		return Session.get('quickquote') !== undefined && Session.get('quickquote').name !== null;
 	},
@@ -101,6 +120,7 @@ Template.maindashboard.helpers ({
 			return "http://finance.yahoo.com/q?s=" + Session.get('quickquote')['symbol'];
 		}
 	},
+
 	getNews: function() {
 		if (Session.get('quickquote') !== undefined && Session.get('quickquote').name !== null) {
 			var symbol = Session.get('quickquote').symbol;

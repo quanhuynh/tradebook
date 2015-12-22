@@ -33,7 +33,7 @@
 		<div class="main-dashboard-container">
 			{{> header}}
 			{{> sidebar}}
-			<div class="col-sm-10 maincontent">
+			<div class="col-sm-10 maincontent ten-col">
 
 				<div class="page-title"> {{portfolio}} </div>
 				<div class="col-md-4 outer-panel">
@@ -44,6 +44,26 @@
 				<div class="col-md-8 outer-panel"> 
 					<div class="inner-panel">
 						<div class="panel-header"> <h3>Holdings</h3> </div>
+						<table class="holdings">
+							<thead>
+								<tr>
+									<th> Quantity </th>
+									<th> Symbol </th>
+									<th> Company </th>
+									<th> Average Buy Price </th>
+									<th> Cost Basis </th>
+								</tr>
+							</thead>
+							{{#each holdings}}
+							<tr class="holding">
+								<td> {{quantity}} </td>
+								<td> {{symbol}} </td>
+								<td> {{company}} </td>
+								<td> {{avgBuyPrice}} </td>
+								<td id="num"> {{costBasis}} </td>
+							</tr>
+							{{/each}}
+						</table>
 					</div>
 				</div>
 				<div class="col-md-6 outer-panel">
@@ -54,7 +74,7 @@
 							</form>
 						</div>
 						{{#if showQuickQuote}}
-						<div class="panel-content"> 
+						<div class="quickquote-content"> 
 							<div class="quickquote-title"> {{quickQuote "name"}} | {{quickQuote "symbol"}} </div>
 							<div class="quickquote-row">
 								<div class="qq-text">
