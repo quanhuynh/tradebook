@@ -5,6 +5,8 @@ function formatNum(x) {
 }
 
 
+
+
 /* ************** */
 /* METEOR METHODS */
 /* ************** */
@@ -15,7 +17,6 @@ Meteor.methods({
     }
     TradePortfolios.insert({
       name: name,
-      originalBalance: balance,
       available: balance,
       description: description,
       createdBy: Meteor.userId(),
@@ -108,11 +109,16 @@ Meteor.methods({
     return data[0];
   },
 
-  getAskPrice: function(symbol) {
+  getAskPrice: function(symbols) {
+    if (symbols.length == 0) {
+      return null;
+    }
     var data = YahooFinance.snapshot({
-      symbols: [symbol],
+      symbols: symbols,
       fields: ['a']
     });
+    return data;
+    
   },
 
   getQuote: function(symbol) {

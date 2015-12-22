@@ -1,4 +1,15 @@
+Meteor.subscribe('tradeportfolios');
+Meteor.subscribe('holdings');
 
+function getSymbols() {
+	var symbols = [];
+	Holdings.find().forEach(function(holding) {
+		if (holding !== undefined) {
+			symbols.push(holding.symbol);
+		}
+	});
+	return symbols;
+}
 
 Template.loginform.helpers({
 	moveToPortfolios: function() {
@@ -61,23 +72,59 @@ Template.maindashboard.helpers ({
 	},
 
 	//OVERVIEW
-	overview: function(selector) {
-		if (selector == "available") {
-			if (TradePortfolios.findOne({current:true})) {
-				return Number(TradePortfolios.findOne({current:true}).available).toFixed(2);
+	overview: function() {
+		if (TradePortfolios.findOne({current:true})) {
+				var available = Number(TradePortfolios.findOne({current:true}).available);
+				Session.set('available', available);
+		}
+		
+		var accountValue = Number(available);
+		var totalChange = 0;
+		var symbols = getSymbols();
+		Meteor.call('getAskPrice', symbols, function(error, result) {
+			if (result !== null && result.length > 0) {
+				for (var i=0; i<result.length; i++) {
+
+					var cbData = result[i];
+					var curHolding = Holdings.findOne({symbol:cbData.symbol});
+					if (curHolding !== undefined) {
+						var holdingMarketVal = cbData.ask*curHolding.quantity;
+						accountValue += holdingMarketVal;
+						totalChange += (holdingMarketVal - Number(curHolding.costBasis));
+						
+					}
+				}
+				Session.set('accountValue', accountValue);
+				Session.set('totalChange', totalChange);
+
+			}
+		});
+		
+	},
+
+	availableFunds: function() {
+		var ava = Session.get('available');
+		if (ava !== undefined) {
+			return "$" + ava.toFixed(2);
+		}
+	},
+
+	accountValue: function() {
+		var val = Session.get('accountValue');
+		if (val !== undefined) {
+			return "$" + val.toFixed(2);
+		}
+	},
+
+	totalChange: function() {
+		var delta = Session.get('totalChange')
+		if (delta !== undefined) {
+			if (delta < 0) {
+				return "-$" + Math.abs(delta).toFixed(2);
+			} else {
+				return "$" + delta.toFixed(2);
 			}
 		}
-		var accountValue = 0;
-		var totalChange;
-		Holdings.find().forEach(function(holding) {
-			var marketPrice;
-			Meteor.call('getAskPrice', holding.symbol, function(error, result) {
-				if (result) {
-					marketPrice = result.ask;
-					
-				}
-			});
-		});
 	},
 
 	//HOLDINGS

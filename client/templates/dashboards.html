@@ -39,12 +39,30 @@
 				<div class="col-md-4 outer-panel">
 					<div class="inner-panel">
 						<div class="panel-header"> <h3>Overview</h3> </div>
+						{{overview}}
+						<table>
+						<tbody>
+							<tr>
+								<td> <strong>Account Value</strong></td>
+								<td> {{accountValue}} </td>
+							</tr>
+							<tr>
+								<td> <strong>Total Change</strong> </td>
+								<td> {{totalChange}} </td>
+							</tr>
+							<tr>
+								<td> <strong>Available Fund</strong> </td>
+								<td> {{availableFunds}} </td>
+							</tr>
+						</tbody>
+					</table>
 					</div>
+					
 				</div>
 				<div class="col-md-8 outer-panel"> 
 					<div class="inner-panel">
 						<div class="panel-header"> <h3>Holdings</h3> </div>
-						<table class="holdings">
+						<table>
 							<thead>
 								<tr>
 									<th> Quantity </th>
@@ -54,15 +72,17 @@
 									<th> Cost Basis </th>
 								</tr>
 							</thead>
-							{{#each holdings}}
-							<tr class="holding">
-								<td> {{quantity}} </td>
-								<td> {{symbol}} </td>
-								<td> {{company}} </td>
-								<td> ${{avgBuyPrice}} </td>
-								<td> ${{costBasis}} </td>
-							</tr>
-							{{/each}}
+							<tbody>
+								{{#each holdings}}
+								<tr class="holding">
+									<td> {{quantity}} </td>
+									<td> {{symbol}} </td>
+									<td> {{company}} </td>
+									<td> ${{avgBuyPrice}} </td>
+									<td> ${{costBasis}} </td>
+								</tr>
+								{{/each}}
+							</tbody>
 						</table>
 					</div>
 				</div>
