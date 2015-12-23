@@ -2,6 +2,7 @@ Meteor.subscribe('tradeportfolios');
 Meteor.subscribe('holdings');
 Meteor.subscribe('watchlist');
 
+//FUNCTIONS
 function getSymbols() {
 	var symbols = [];
 	Holdings.find().forEach(function(holding) {
@@ -31,6 +32,8 @@ function getMarketPrice(symbol) {
 	});
 }
 
+
+//HELPERS
 Template.loginform.helpers({
 	moveToPortfolios: function() {
 		Router.go('portfoliosdashboard');
@@ -91,6 +94,10 @@ Template.trade.helpers({
 });
 
 Template.maindashboard.helpers ({
+	clean: function() {
+		Session.set('quickquote', undefined);
+	},
+
 	portfolio: function() {
 		if (TradePortfolios.findOne({current:true})) {
 			return TradePortfolios.findOne({current: true}).name;
@@ -281,5 +288,16 @@ Template.watchlist.helpers({
 		getMarketPrice(symbol);
 		var marketPrice = Session.get("tempMarketPrice" + symbol);
 		return "$" + marketPrice.toFixed(2);
-	} 
+	},
+
+	date: function(symbol) {
+		var watched = Watchlist.findOne({symbol:symbol});
+		if (watched) {
+			var date = watched.dateAdded;
+			var dd = date.getDate();
+			var mm = date.getMonth() +1;
+			var yyyy = date.getFullYear();
+			return "" + mm + "/" + dd + "/" + yyyy;
+		}
+	}
 });

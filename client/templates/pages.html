@@ -53,6 +53,7 @@
 						<tr>
 							<th> Symbol </th>
 							<th> Company </th>
+							<th> Date Added </th>
 							<th> Initial Price </th>
 							<th> Current Market Price </th>
 							<th> Options </th>
@@ -63,6 +64,7 @@
 						<tr data-symbol="{{symbol}}">
 							<td> {{symbol}} </td>
 							<td> {{name}} </td>
+							<td class="num"> {{date this.symbol}} </td>
 							<td class="num"> ${{initial}} </td>
 							<td class="num"> {{marketPrice this.symbol}} </td>
 							<td>

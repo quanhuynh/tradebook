@@ -31,13 +31,15 @@ Meteor.methods({
       throw new Meteor.Error("Not authorized");
     }
     var portfolio = TradePortfolios.findOne({current:true});
+    var curTime = new Date();
     if (Watchlist.findOne({symbol:symbol}) === undefined && portfolio !== undefined) {
       Watchlist.insert({
         portfolioName: portfolio.name,
         name: name,
         symbol: symbol,
         initial: currentPrice.toFixed(2),
-        createdBy: Meteor.userId()
+        createdBy: Meteor.userId(),
+        dateAdded: curTime
       });
     }
     

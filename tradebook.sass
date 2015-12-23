@@ -118,6 +118,8 @@ body
 		color: $emerald
 
 .wrapper
+	display: inline-block !important
+	transform: none !important
 	overflow: scroll
 
 .portfolio-dashboard
@@ -249,14 +251,11 @@ body
 .sidebar
 	position: fixed
 	height: 100vh
-	top: 0
 	background: $emerald
 	color: white
 	.logo
 		color: white
-		display: flex
 		float: left
-		align-items: center
 		padding: 10px
 		img
 			float: left
@@ -264,6 +263,7 @@ body
 			width: auto
 			padding: 0 10px 0 10px
 		#logo
+			float: left
 			padding: 0 10px 0 10px
 			font:
 				size: 20px
