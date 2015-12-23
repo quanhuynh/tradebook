@@ -37,7 +37,6 @@ Meteor.methods({
         name: name,
         symbol: symbol,
         initial: currentPrice,
-        market: currentPrice,
         createdBy: Meteor.userId()
       });
     }
@@ -64,7 +63,7 @@ Meteor.methods({
         symbol: symbol,
         quantity: quantity,
         costBasis: costBasisRep,
-        avgBuyPrice: avgPriceRep
+        avgBuyPrice: avgPriceRep,
       });
       var newHolding = Holdings.findOne({company:companyName});
       var newAvailable = Number(portfolio.available) - Number(newHolding.costBasis);
@@ -127,15 +126,12 @@ Meteor.methods({
     return data[0];
   },
 
-  getOverview: function(symbols) {
-    if (symbols.length == 0) {
-      return null;
-    }
+  getMarketPrice: function(symbol) {
     var data = YahooFinance.snapshot({
-      symbols: symbols,
+      symbols: [symbol],
       fields: ['a']
     });
-    return data;
+    return data[0];
     
   },
 

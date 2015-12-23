@@ -36,111 +36,115 @@
 			<div class="col-sm-10 maincontent ten-col">
 
 				<div class="page-title"> {{portfolio}} </div>
-				<div class="col-md-4 outer-panel">
-					<div class="inner-panel">
-						<div class="panel-header"> <h3>Overview</h3> </div>
-						{{overview}}
-						<table>
-						<tbody>
-							<tr>
-								<td> <strong>Account Value</strong></td>
-								<td> {{accountValue}} </td>
-							</tr>
-							<tr>
-								<td> <strong>Total Change</strong> </td>
-								<td> {{totalChange}} </td>
-							</tr>
-							<tr>
-								<td> <strong>Available Fund</strong> </td>
-								<td> {{availableFunds}} </td>
-							</tr>
-						</tbody>
-					</table>
-					</div>				
-				</div>
-
-				<div class="col-md-8 outer-panel"> 
-					<div class="inner-panel">
-						<div class="panel-header"> <h3>Holdings</h3> </div>
-						<table>
-							<thead>
-								<tr>
-									<th> Symbol </th>
-									<th> Company </th>
-									<th> Quantity </th>
-									<th> Average Buy Price </th>
-									<th> Cost Basis </th>
-								</tr>
-							</thead>
+				<div class="row">
+					<div class="col-md-4 outer-panel">
+						<div class="inner-panel">
+							<div class="panel-header"> <h3>Overview</h3> </div>
+							{{overview}}
+							<table>
 							<tbody>
-								{{#each holdings}}
-								<tr class="holding">
-									<td> {{symbol}} </td>
-									<td> {{company}} </td>
-									<td> {{quantity}} </td>
-									<td> ${{avgBuyPrice}} </td>
-									<td> ${{costBasis}} </td>
+								<tr>
+									<td> <strong>Account Value</strong></td>
+									<td> {{accountValue}} </td>
 								</tr>
-								{{/each}}
+								<tr>
+									<td> <strong>Total Change</strong> </td>
+									<td> {{totalChange}} </td>
+								</tr>
+								<tr>
+									<td> <strong>Available Fund</strong> </td>
+									<td> {{availableFunds}} </td>
+								</tr>
 							</tbody>
 						</table>
+						</div>				
+					</div>
+
+					<div class="col-md-8 outer-panel"> 
+						<div class="inner-panel">
+							<div class="panel-header"> <h3>Holdings</h3> </div>
+							<table>
+								<thead>
+									<tr>
+										<th> Symbol </th>
+										<th> Company </th>
+										<th> Quantity </th>
+										<th> Average Buy Price </th>
+										<th> Cost Basis </th>
+									</tr>
+								</thead>
+								<tbody>
+									{{#each holdings}}
+									<tr class="holding">
+										<td> {{symbol}} </td>
+										<td> {{company}} </td>
+										<td> {{quantity}} </td>
+										<td> ${{avgBuyPrice}} </td>
+										<td> ${{costBasis}} </td>
+									</tr>
+									{{/each}}
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
 
-				<div class="col-md-6 outer-panel">
-					<div class="inner-panel">
-						<div class="panel-header"> <h3>Quick Quotes </h3>
-							<form class="search-field">
-								<input type="text" name="symbol" placeholder="Search for a symbol"/>
-							</form>
-						</div>
-						{{#if showQuickQuote}}
-						<div class="quickquote-content"> 
-							<div class="quickquote-title"> {{quickQuote "name"}} | {{quickQuote "symbol"}} </div>
-							<div class="quickquote-row">
-								<div class="qq-text">
-									Ask: ${{quickQuote "ask"}}
+				<div class="row">
+					<div class="col-md-6 outer-panel">
+						<div class="inner-panel">
+							<div class="panel-header"> <h3>Quick Quotes </h3>
+								<form class="search-field">
+									<input type="text" name="symbol" placeholder="Search for a symbol"/>
+								</form>
+							</div>
+							{{#if showQuickQuote}}
+							<div class="quickquote-content"> 
+								<div class="quickquote-title"> {{quickQuote "name"}} | {{quickQuote "symbol"}} </div>
+								<div class="quickquote-row">
+									<div class="qq-text">
+										Ask: ${{quickQuote "ask"}}
+									</div>
+									<div class="qq-text">
+										Bid: ${{quickQuote "bid"}}
+									</div>
+									<div class="qq-text">
+										Volume: {{quickQuote "volume"}}
+									</div>
+									<div class="qq-text">
+										Day Change: {{quickQuote "change"}}
+									</div>
 								</div>
-								<div class="qq-text">
-									Bid: ${{quickQuote "bid"}}
+								<div class="chart"> {{showQuoteChart}}
 								</div>
-								<div class="qq-text">
-									Volume: {{quickQuote "volume"}}
+								<div class="quickquote-row">
+									<div class="qq-text"> Day's Low: ${{quickQuote "daysLow"}}
+									</div>
+									<div class="qq-text"> Day's High: ${{quickQuote "daysHigh"}}
+									</div>
+									<div class="qq-text"> 52-Week Low: ${{quickQuote "52WeekLow"}}
+									</div>
+									<div class="qq-text"> 52-Week High: ${{quickQuote "52WeekHigh"}}
+									</div>
 								</div>
-								<div class="qq-text">
-									Day Change: {{quickQuote "change"}}
+								<div class="quickquote-title"> Actions </div>
+								<div class="quickquote-row">
+									<a class="qq-text" href="{{pathFor route='trade'}}"> Trade </a>
+									<a class="qq-text watchlistAdd"> Add to watchlist </a>
+									<a class="qq-text" href="{{yahooFinanceLink}}" target="_blank"> More Info. (Yahoo Finance) </a>
 								</div>
 							</div>
-							<div class="chart"> {{showQuoteChart}}
-							</div>
-							<div class="quickquote-row">
-								<div class="qq-text"> Day's Low: ${{quickQuote "daysLow"}}
-								</div>
-								<div class="qq-text"> Day's High: ${{quickQuote "daysHigh"}}
-								</div>
-								<div class="qq-text"> 52-Week Low: ${{quickQuote "52WeekLow"}}
-								</div>
-								<div class="qq-text"> 52-Week High: ${{quickQuote "52WeekHigh"}}
-								</div>
-							</div>
-							<div class="quickquote-title"> Actions </div>
-							<div class="quickquote-row">
-								<a class="qq-text" href="{{pathFor route='trade'}}"> Trade </a>
-								<a class="qq-text watchlistAdd"> Add to watchlist </a>
-								<a class="qq-text" href="{{yahooFinanceLink}}" target="_blank"> More Info. (Yahoo Finance) </a>
-							</div>
-						</div>
 
-						{{else}}
-						<div class="nostock"> Nothing to show! </div>
-						{{/if}}
+							{{else}}
+							<div class="nostock"> Nothing to show! </div>
+							{{/if}}
 
+						</div>
 					</div>
-				</div>
 
-				<div class="col-md-6 outer-panel">
-					<div class="inner-panel">
-						<div class="panel-header"> <h3>News</h3> </div>
+					<div class="col-md-6 outer-panel">
+						<div class="inner-panel">
+							<div class="panel-header"> <h3>News</h3> </div>
+						</div>
 					</div>
 				</div>
 

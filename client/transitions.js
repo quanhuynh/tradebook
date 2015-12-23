@@ -69,3 +69,21 @@ Transitioner.transition({
     out: 'transition.slideUpBigOut'
   }
 });
+
+/* DASHBOARD <-> HOLDINGS */
+Transitioner.transition({
+  fromRoute: 'dashboard',
+  toRoute: 'holdings',
+  velocityAnimation: {
+    in: 'transition.slideUpBigIn',
+    out: 'transition.slideUpOut'
+  }
+});
+Transitioner.transition({
+  fromRoute: 'holdings',
+  toRoute: 'dashboard',
+  velocityAnimation: {
+    in: 'transition.slideDownIn',
+    out: 'transition.slideDownOut'
+  }
+});

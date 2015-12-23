@@ -14,20 +14,21 @@
 						<th> Current Market Price </th>
 						<th> Cost Basis </th>
 						<th> Current Market Value </th>
-						<th> Stock Day Change </th>
+						<th> Total Change </th>
 					</tr>
 				</thead>
 				<tbody>
 					{{#each holdings}}
+						{{update this.symbol}}
 						<tr class="holding">
 							<td> {{symbol}} </td>
 							<td> {{company}} </td>
 							<td> {{quantity}} </td>
 							<td> ${{avgBuyPrice}} </td>
-							<td> </td>
+							<td> {{holdingInfo "marketPrice" this.symbol}} </td>
 							<td> ${{costBasis}} </td>
-							<td> </td>
-							<td> </td>
+							<td> {{holdingInfo "marketValue" this.symbol}} </td>
+							<td> {{holdingInfo "change" this.symbol}} </td>
 						</tr>
 					{{/each}}
 				</tbody>
@@ -41,7 +42,6 @@
 	<div class="wrapper">
 			{{> header}}
 			{{> sidebar}}
-			{{updateWatchlist}}
 			<div class="col-sm-10 maincontent ten-col">
 				<div class="page-title"> Watchlist </div>
 				<table class="watchlist">
@@ -60,7 +60,7 @@
 							<td> {{symbol}} </td>
 							<td> {{name}} </td>
 							<td class="num"> ${{initial}} </td>
-							<td class="num"> ${{market}} </td>
+							<td class="num"> ${{marketPrice this.symbol}} </td>
 							<td>
 								<a href="{{pathFor route='trade'}}" id="trade"> Trade </a>
 								<a id="remove"> Remove </a>

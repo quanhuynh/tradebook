@@ -22,6 +22,15 @@ function getWatchlistSymbols() {
 	return symbols;
 }
 
+function getMarketPrice(symbol) {
+	Meteor.call('getMarketPrice', symbol, function(error, result) {
+		if (result !== null) {
+			var query = "tempMarketPrice" + symbol;
+			Session.set(query, result.ask);
+		}
+	});
+}
+
 Template.loginform.helpers({
 	moveToPortfolios: function() {
 		Router.go('portfoliosdashboard');
@@ -91,30 +100,18 @@ Template.maindashboard.helpers ({
 		
 		var accountValue = Number(available);
 		var totalChange = 0;
-		var symbols = getSymbols();
-		Meteor.call('getOverview', symbols, function(error, result) {
-			
-			if (result !== null) {
-				for (var i=0; i<result.length; i++) {
 
-					var cbData = result[i];
-					var curHolding = Holdings.findOne({symbol:cbData.symbol});
-					if (curHolding !== undefined) {
-						//console.log("Doing " + cbData.symbol);
-						//console.log("Current price: " + cbData.ask);
-						var holdingMarketVal = cbData.ask*curHolding.quantity;
-						//console.log("Holding market value: " + holdingMarketVal);
-						accountValue += holdingMarketVal;
-						//console.log("Account Value Change: " + accountValue);
-						totalChange += (holdingMarketVal - Number(curHolding.costBasis));
-						//console.log("Total Change Change: " + totalChange);
-					}
-				}
-				Session.set('accountValue', accountValue);
-				Session.set('totalChange', totalChange);
-
-			}
+		Holdings.find().forEach(function(holding) {
+			getMarketPrice(holding.symbol);
+			var query = "tempMarketPrice" + holding.symbol;
+			var marketPrice = Session.get(query);
+			var holdingMarketVal = marketPrice*holding.quantity;
+			accountValue += holdingMarketVal;
+			totalChange += (holdingMarketVal - Number(holding.costBasis));
 		});
+
+		Session.set('accountValue', accountValue);
+		Session.set('totalChange', totalChange);
 		
 	},
 
@@ -240,53 +237,35 @@ Template.holdings.helpers({
 		return Holdings.find({createdBy: Meteor.userId()});
 	},
 
-	holdingsInfo: function() {
-		var symbols = getSymbols();
-		Meteor.call('getOverview', symbols, function(error, result) {
-			
-			if (result !== null) {
-				for (var i=0; i<result.length; i++) {
+	update: function(symbol) {
+		getMarketPrice(symbol);
+		var curHolding = Holdings.findOne({symbol:symbol});
+		var query = "tempMarketPrice" + symbol;
+		var marketPrice = Session.get(query);
+		var marketValue;
+		var change;
+		if (curHolding) {
+			marketValue = marketPrice*curHolding.quantity;
+			change = marketValue - curHolding.costBasis;
+		}
+		Session.set("marketPrice" + symbol, marketPrice);
+		Session.set("marketValue" + symbol, marketValue);
+		Session.set("change" + symbol, change);
+		
+	},
 
-					var cbData = result[i];
-					var curHolding = Holdings.findOne({symbol:cbData.symbol});
-					if (curHolding !== undefined) {
-						//console.log("Doing " + cbData.symbol);
-						//console.log("Current price: " + cbData.ask);
-						var holdingMarketVal = cbData.ask*curHolding.quantity;
-						//console.log("Holding market value: " + holdingMarketVal);
-						accountValue += holdingMarketVal;
-						//console.log("Account Value Change: " + accountValue);
-						totalChange += (holdingMarketVal - Number(curHolding.costBasis));
-						//console.log("Total Change Change: " + totalChange);
-					}
-				}
-				Session.set('accountValue', accountValue);
-				Session.set('totalChange', totalChange);
-			}
-		});
+	holdingInfo: function(selector, symbol) {
+		var value = Session.get(selector + symbol);
+		if (value < 0) {
+			return "-$" + Math.abs(value).toFixed(2);
+		} else {
+			return "$" + value.toFixed(2);
+		}
 	}
 
 });
 
 Template.watchlist.helpers({
-	updateWatchlist: function() {
-		var symbols = getWatchlistSymbols();
-		Meteor.call('getOverview', symbols, function(error, result) {
-			if (result !== null) {
-				for (var i=0; i<result.length; i++) {
-					var cbData = result[i];
-					if (cbData && cbData.symbol) {
-						var watched = Watchlist.findOne({symbol:cbData.symbol});
-						if (watched) {
-							Watchlist.update(watched._id, {
-								$set: {market:cbData.ask}
-							});
-						}
-					}
-				}
-			}
-		});
-	},
 
 	watcheds: function() {
 		return Watchlist.find({createdBy:Meteor.userId()});
