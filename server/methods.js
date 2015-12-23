@@ -1,11 +1,5 @@
 var fee = 5;
 
-function formatNum(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
-
-
-
 
 /* ************** */
 /* METEOR METHODS */
@@ -29,6 +23,29 @@ Meteor.methods({
     var portfolioName = TradePortfolios.findOne({_id:portfolioId}).name;
     TradePortfolios.remove(portfolioId);
     Holdings.remove({portfolioName:portfolioName});
+    Watchlist.remove({portfolioName:portfolioName});
+  },
+
+  addToWatchlist: function(symbol, name, currentPrice) {
+    if (! Meteor.userId()) {
+      throw new Meteor.Error("Not authorized");
+    }
+    var portfolio = TradePortfolios.findOne({current:true});
+    if (Watchlist.findOne({symbol:symbol}) === undefined && portfolio !== undefined) {
+      Watchlist.insert({
+        portfolioName: portfolio.name,
+        name: name,
+        symbol: symbol,
+        initial: currentPrice,
+        market: currentPrice,
+        createdBy: Meteor.userId()
+      });
+    }
+    
+  },
+
+  deleteWatched: function(watchedId) {
+    Watchlist.remove(watchedId);
   },
 
   BuyStock: function(symbol, companyName, quantity, price) {
@@ -101,6 +118,7 @@ Meteor.methods({
     }
     
   },
+
   getName: function(symbol) {
     var data = YahooFinance.snapshot({
       symbols: [symbol],

@@ -14,7 +14,7 @@
 						<th> Current Market Price </th>
 						<th> Cost Basis </th>
 						<th> Current Market Value </th>
-						<th> Day Change </th>
+						<th> Stock Day Change </th>
 					</tr>
 				</thead>
 				<tbody>
@@ -33,5 +33,42 @@
 				</tbody>
 			</table>
 		</div>
+	</div>
+</template>
+
+<template name="watchlist">
+
+	<div class="wrapper">
+			{{> header}}
+			{{> sidebar}}
+			{{updateWatchlist}}
+			<div class="col-sm-10 maincontent ten-col">
+				<div class="page-title"> Watchlist </div>
+				<table class="watchlist">
+					<thead>
+						<tr>
+							<th> Symbol </th>
+							<th> Company </th>
+							<th> Initial Price </th>
+							<th> Current Market Price </th>
+							<th> Options </th>
+						</tr>
+					</thead>
+					<tbody>
+						{{#each watcheds}}
+						<tr data-symbol="{{symbol}}">
+							<td> {{symbol}} </td>
+							<td> {{name}} </td>
+							<td class="num"> ${{initial}} </td>
+							<td class="num"> ${{market}} </td>
+							<td>
+								<a href="{{pathFor route='trade'}}" id="trade"> Trade </a>
+								<a id="remove"> Remove </a>
+							</td>
+						</tr>
+						{{/each}}
+					</tbody>
+				</table>
+			</div>
 	</div>
 </template>

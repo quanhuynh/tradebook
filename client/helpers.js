@@ -1,11 +1,22 @@
 Meteor.subscribe('tradeportfolios');
 Meteor.subscribe('holdings');
+Meteor.subscribe('watchlist');
 
 function getSymbols() {
 	var symbols = [];
 	Holdings.find().forEach(function(holding) {
 		if (holding !== undefined) {
 			symbols.push(holding.symbol);
+		}
+	});
+	return symbols;
+}
+
+function getWatchlistSymbols() {
+	var symbols = [];
+	Watchlist.find().forEach(function(watched) {
+		if (watched !== undefined) {
+			symbols.push(watched.symbol);
 		}
 	});
 	return symbols;
@@ -255,4 +266,29 @@ Template.holdings.helpers({
 		});
 	}
 
+});
+
+Template.watchlist.helpers({
+	updateWatchlist: function() {
+		var symbols = getWatchlistSymbols();
+		Meteor.call('getOverview', symbols, function(error, result) {
+			if (result !== null) {
+				for (var i=0; i<result.length; i++) {
+					var cbData = result[i];
+					if (cbData && cbData.symbol) {
+						var watched = Watchlist.findOne({symbol:cbData.symbol});
+						if (watched) {
+							Watchlist.update(watched._id, {
+								$set: {market:cbData.ask}
+							});
+						}
+					}
+				}
+			}
+		});
+	},
+
+	watcheds: function() {
+		return Watchlist.find({createdBy:Meteor.userId()});
+	}
 });

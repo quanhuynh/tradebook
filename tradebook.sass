@@ -296,6 +296,20 @@ body
 			padding: 10px 5px
 	.page-title
 		margin: 40px 0 40px 0
+	.num
+		text-align: right
+	//PAGES
+	.watchlist
+		a
+			cursor: pointer
+			font-weight: 600
+			padding: 0 5px
+		#remove
+			color: $pomegranate-red
+		#trade
+			color: $nephritis-green
+
+	//HOME PAGE PANELS
 	.outer-panel
 		padding: 10px
 		.inner-panel
@@ -318,8 +332,6 @@ body
 						border: thin solid $emerald
 						border-radius: 3px
 
-			
-
 			//QUICK QUOTE//
 			.quickquote-content
 				padding-top: 10px
@@ -333,6 +345,7 @@ body
 					display: flex
 					justify-content: space-around
 				.qq-text
+					cursor: pointer
 					font:
 						size: 15px
 				.chart
@@ -360,19 +373,17 @@ body
 	background: $emerald
 	color: white
 	font-weight: 600
-	transition: linear 0.2s
-	&:hover
-		background: $nephritis-green
-	a
-		color: white
-		&:hover
-			text-decoration: none
+
 	.selectors
 		display: flex
 		align-items: center
 		float: right
 		padding: 0 15px 0 15px
 		font-size: 20px
+		a
+			color: white
+			&:hover
+				text-decoration: none
 		.selector
 			float: left
 			cursor: pointer

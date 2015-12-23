@@ -83,7 +83,24 @@ Template.maindashboard.events({
       Session.set('historical', result);
     });
     symInput.value = "";
+  },
+
+  'click .watchlistAdd': function(event) {
+    event.preventDefault();
+    var input = event.target;
+    var source = Session.get('quickquote');
+    if (source !== undefined) {
+      var symbol = source.symbol;
+      var name = source.name;
+      var curPrice = source.ask;
+      Meteor.call('addToWatchlist', symbol, name, curPrice);
+    }
+    input.text = "Added!";
+    setTimeout(function() {
+      input.text = "Add to Watchlist";
+    }, 2000);
   }
+
 });
 
 Template.trade.events({
@@ -145,4 +162,16 @@ Template.trade.events({
     
   }
 
+});
+
+Template.watchlist.events({
+  'click #remove': function(event) {
+    event.preventDefault();
+    var symbol = $(event.currentTarget).parent().parent().data('symbol');
+    var watchedId = Watchlist.findOne({symbol:symbol});
+    var retVal = confirm("Are you sure you want to delete this watched stock?");
+    if (retVal) {
+      Meteor.call("deleteWatched", watchedId);
+    }
+  }
 });
