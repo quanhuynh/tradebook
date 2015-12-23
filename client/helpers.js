@@ -73,14 +73,20 @@ Template.trade.helpers({
 	},
 
 	previewInfo: function(selector) {
-		if (selector == "total") {
-
-		} else {
-			var currentTrade = Session.get('currentTrade');
-			if (currentTrade !== undefined) {
-				return currentTrade[selector];
+		var currentTrade = Session.get('currentTrade');
+		getMarketPrice(currentTrade.symbol);
+		var marketPrice = Session.get("tempMarketPrice" + currentTrade.symbol);
+		if (currentTrade) {
+			if (selector == "total") {
+				var shares = Number(currentTrade.shares);
+				return "$" + (marketPrice*shares).toFixed(2);
+			} else if (selector == "price") {
+				return "$" + marketPrice.toFixed(2);
+			} else {
+				return currentTrade[selector]; 
 			}
 		}
+		
 	}
 });
 
@@ -269,5 +275,11 @@ Template.watchlist.helpers({
 
 	watcheds: function() {
 		return Watchlist.find({createdBy:Meteor.userId()});
-	}
+	},
+
+	marketPrice: function(symbol) {
+		getMarketPrice(symbol);
+		var marketPrice = Session.get("tempMarketPrice" + symbol);
+		return "$" + marketPrice.toFixed(2);
+	} 
 });

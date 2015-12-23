@@ -87,3 +87,21 @@ Transitioner.transition({
     out: 'transition.slideDownOut'
   }
 });
+
+/* DASHBOARD <-> WATCHLIST */
+Transitioner.transition({
+  fromRoute: 'dashboard',
+  toRoute: 'watchlist',
+  velocityAnimation: {
+    in: 'transition.slideUpBigIn',
+    out: 'transition.slideUpOut'
+  }
+});
+Transitioner.transition({
+  fromRoute: 'watchlist',
+  toRoute: 'dashboard',
+  velocityAnimation: {
+    in: 'transition.slideDownIn',
+    out: 'transition.slideDownOut'
+  }
+});

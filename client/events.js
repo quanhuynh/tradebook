@@ -153,8 +153,13 @@ Template.trade.events({
       Meteor.call("getQuote", symbol, function(error, result) {
         if (result !== null) {
           Meteor.call(method, symbol, name, shares, result.ask);
+          Router.go('loading');
+          setTimeout(function(){
+            alert("Trade Successfully Submitted");
+            Router.go('dashboard');
+          }, 1500);
         }
-        
+
       });
 
     }

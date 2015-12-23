@@ -14,23 +14,27 @@
 						<th> Current Market Price </th>
 						<th> Cost Basis </th>
 						<th> Current Market Value </th>
-						<th> Total Change </th>
+						<th> Change </th>
 					</tr>
 				</thead>
 				<tbody>
 					{{#each holdings}}
-						{{update this.symbol}}
-						<tr class="holding">
-							<td> {{symbol}} </td>
-							<td> {{company}} </td>
-							<td> {{quantity}} </td>
-							<td> ${{avgBuyPrice}} </td>
-							<td> {{holdingInfo "marketPrice" this.symbol}} </td>
-							<td> ${{costBasis}} </td>
-							<td> {{holdingInfo "marketValue" this.symbol}} </td>
-							<td> {{holdingInfo "change" this.symbol}} </td>
-						</tr>
+					{{update this.symbol}}
+					<tr class="holding">
+						<td> {{symbol}} </td>
+						<td> {{company}} </td>
+						<td class="num"> {{quantity}} </td>
+						<td class="num"> ${{avgBuyPrice}} </td>
+						<td class="num"> {{holdingInfo "marketPrice" this.symbol}} </td>
+						<td class="num"> ${{costBasis}} </td>
+						<td class="num"> {{holdingInfo "marketValue" this.symbol}} </td>
+						<td class="num"> {{holdingInfo "change" this.symbol}} </td>
+					</tr>
 					{{/each}}
+					<tr>
+						<td> Total Change </td>
+						<td> Blank </td>
+					</tr>
 				</tbody>
 			</table>
 		</div>
@@ -60,7 +64,7 @@
 							<td> {{symbol}} </td>
 							<td> {{name}} </td>
 							<td class="num"> ${{initial}} </td>
-							<td class="num"> ${{marketPrice this.symbol}} </td>
+							<td class="num"> {{marketPrice this.symbol}} </td>
 							<td>
 								<a href="{{pathFor route='trade'}}" id="trade"> Trade </a>
 								<a id="remove"> Remove </a>

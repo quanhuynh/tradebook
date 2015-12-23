@@ -36,7 +36,7 @@ Meteor.methods({
         portfolioName: portfolio.name,
         name: name,
         symbol: symbol,
-        initial: currentPrice,
+        initial: currentPrice.toFixed(2),
         createdBy: Meteor.userId()
       });
     }
