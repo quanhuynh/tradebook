@@ -85,7 +85,8 @@ Meteor.methods({
         $set: {
           quantity: newQuantity,
           costBasis: newCostBasis,
-          avgBuyPrice: newAvgBuyPrice
+          avgBuyPrice: newAvgBuyPrice,
+
         }
       });
 
@@ -93,21 +94,31 @@ Meteor.methods({
       TradePortfolios.update(portfolio._id, {
         $set: {available: newAvailable}
       });
+
+      var curDate = new Date();
+      Orders.insert({
+        portfolioName: portfolio.name,
+        createdBy: Meteor.userId(),
+        tradeType: "Buy",
+        company: companyName,
+        symbol: symbol,
+        quantity: quantity,
+        date: curDate
+      });
+
     }
 
     
   },
 
-  SellStock: function(portfolio, companyName, quantity, price) {
+  SellStock: function(symbol, companyName, quantity, price) {
     var portfolio = TradePortfolios.findOne({current:true});
     var curHolding = Holdings.findOne({symbol:symbol});
 
-    if (curHolding === undefined) {
-      //doesn't own the stock
+    if (curHolding === undefined || quantity > curHolding.quantity) {
+      //doesn't own the stock or selling too much
     } else {
-      if (quantity > curHolding.quantity) {
-        //selling too much
-      } else if (quantity == curHolding.quantity) {
+      if (quantity == curHolding.quantity) {
         //selling everything -> remove holding
         var rev = quantity*price;
         var newAvailable = portfolio.available + rev;
@@ -115,8 +126,22 @@ Meteor.methods({
         TradePortfolios.update(portfolio._id, {
           $set: {available:newAvailable}
         });
+      } else {
+        //not selling everything
       }
+      var curDate = new Date();
+      Orders.insert({
+        portfolioName: portfolio.name,
+        createdBy: Meteor.userId(),
+        tradeType: "Sell",
+        company: companyName,
+        symbol: symbol,
+        quantity: quantity,
+        date: curDate
+      });
+      
     }
+    
     
   },
 

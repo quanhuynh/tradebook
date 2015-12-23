@@ -10,6 +10,9 @@ Meteor.publish('holdings', function() {
 Meteor.publish('watchlist', function() {
 	return Watchlist.find({createdBy: this.userId});
 });
+Meteor.publish('orders', function() {
+	return Orders.find({createdBy: this.userId});
+});
 
 TradePortfolios.allow({
 	'update': function(userId, doc, fields, modifier) {
@@ -27,4 +30,4 @@ Watchlist.allow({
 	'update': function(userId, doc, fields, modifier) {
 		return modifier.$set != null && Meteor.userId() == userId;
 	}
-})
+});

@@ -1,8 +1,11 @@
 Meteor.subscribe('tradeportfolios');
 Meteor.subscribe('holdings');
 Meteor.subscribe('watchlist');
+Meteor.subscribe('orders');
 
-//FUNCTIONS
+///////////////
+// FUNCTIONS //
+///////////////
 function getSymbols() {
 	var symbols = [];
 	Holdings.find().forEach(function(holding) {
@@ -32,31 +35,14 @@ function getMarketPrice(symbol) {
 	});
 }
 
+//////////////
+// HELPERS ///
+//////////////
 
-//HELPERS
+// FORMS
 Template.loginform.helpers({
 	moveToPortfolios: function() {
 		Router.go('portfoliosdashboard');
-	}
-});
-
-Template.portfoliosdashboard.helpers ({
-	count: function() {
-	  return TradePortfolios.find({createdBy: Meteor.userId()}).count();
-	},
-	portfolios: function() {
-	  return TradePortfolios.find({createdBy: Meteor.userId()});
-	}
-});
-
-Template.header.helpers ({
-	username: function() {
-		if (Meteor.user()) {
-			return Meteor.user().username;
-		}
-	},
-	dashboardable: function() {
-		return TradePortfolios.findOne({current:true}) !== undefined;
 	}
 });
 
@@ -79,7 +65,7 @@ Template.trade.helpers({
 		var currentTrade = Session.get('currentTrade');
 		getMarketPrice(currentTrade.symbol);
 		var marketPrice = Session.get("tempMarketPrice" + currentTrade.symbol);
-		if (currentTrade) {
+		if (currentTrade && marketPrice) {
 			if (selector == "total") {
 				var shares = Number(currentTrade.shares);
 				return "$" + (marketPrice*shares).toFixed(2);
@@ -90,6 +76,16 @@ Template.trade.helpers({
 			}
 		}
 		
+	}
+});
+
+// DASHBOARDS
+Template.portfoliosdashboard.helpers ({
+	count: function() {
+	  return TradePortfolios.find({createdBy: Meteor.userId()}).count();
+	},
+	portfolios: function() {
+	  return TradePortfolios.find({createdBy: Meteor.userId()});
 	}
 });
 
@@ -242,9 +238,22 @@ Template.maindashboard.helpers ({
 		}
 		
 	}
-
 });
 
+// MISC
+
+Template.header.helpers ({
+	username: function() {
+		if (Meteor.user()) {
+			return Meteor.user().username;
+		}
+	},
+	dashboardable: function() {
+		return TradePortfolios.findOne({current:true}) !== undefined;
+	}
+});
+
+// PAGES
 Template.holdings.helpers({
 	holdings: function() {
 		return Holdings.find({createdBy: Meteor.userId()});
@@ -275,7 +284,6 @@ Template.holdings.helpers({
 			return "$" + value.toFixed(2);
 		}
 	}
-
 });
 
 Template.watchlist.helpers({
@@ -300,4 +308,23 @@ Template.watchlist.helpers({
 			return "" + mm + "/" + dd + "/" + yyyy;
 		}
 	}
+});
+
+Template.orders.helpers({
+	
+	orders: function() {
+		return Orders.find({createdBy:Meteor.userId()});
+	},
+
+	date: function(date) {
+		var order = Orders.findOne({date:date});
+		if (order) {
+			var date = order.date;
+			var dd = date.getDate();
+			var mm = date.getMonth() + 1;
+			var yyyy = date.getFullYear();
+			return "" + mm + "/" + dd + "/" + yyyy;
+		}
+	}
+
 });

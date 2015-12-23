@@ -1,5 +1,5 @@
 <template name="holdings">
-	<div class="wrapper">
+	<div class="wrappity">
 		{{> header}}
 		{{> sidebar}}
 		<div class="col-sm-10 maincontent ten-col">
@@ -43,7 +43,7 @@
 
 <template name="watchlist">
 
-	<div class="wrapper">
+	<div class="wrappity">
 			{{> header}}
 			{{> sidebar}}
 			<div class="col-sm-10 maincontent ten-col">
@@ -76,5 +76,37 @@
 					</tbody>
 				</table>
 			</div>
+	</div>
+</template>
+
+<template name="orders">
+	<div class="wrappity">
+		{{> header}}
+		{{> sidebar}}
+		<div class="col-sm-10 maincontent ten-col">
+			<div class="page-title"> Order History </div>
+			<table class="history">
+				<thead>
+					<tr>
+						<th> Symbol </th>
+						<th> Company </th>
+						<th> Date </th>
+						<th> Trade Type </th>
+						<th> Shares </th>
+					</tr>
+				</thead>
+				<tbody>
+					{{#each orders}}
+					<tr>
+						<td> {{symbol}} </td>
+						<td> {{company}} </td>
+						<td> {{date this.date}} </td>
+						<td> {{tradeType}} </td>
+						<td> {{quantity}} </td>
+					</tr>
+					{{/each}}
+				</tbody>
+			</table>
+		</div>
 	</div>
 </template>

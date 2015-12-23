@@ -105,3 +105,21 @@ Transitioner.transition({
     out: 'transition.slideDownOut'
   }
 });
+
+/* DASHBOARD <-> HISTORY */
+Transitioner.transition({
+  fromRoute: 'dashboard',
+  toRoute: 'orders',
+  velocityAnimation: {
+    in: 'transition.slideUpBigIn',
+    out: 'transition.slideUpOut'
+  }
+});
+Transitioner.transition({
+  fromRoute: 'orders',
+  toRoute: 'dashboard',
+  velocityAnimation: {
+    in: 'transition.slideDownIn',
+    out: 'transition.slideDownOut'
+  }
+});
