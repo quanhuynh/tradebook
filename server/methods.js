@@ -1,4 +1,4 @@
-var fee = 5;
+var fee = 4.99;
 
 
 /* ************** */
@@ -11,6 +11,7 @@ Meteor.methods({
     }
     TradePortfolios.insert({
       name: name,
+      initialBalance: Number(balance),
       available: balance,
       description: description,
       createdBy: Meteor.userId(),
@@ -24,6 +25,7 @@ Meteor.methods({
     TradePortfolios.remove(portfolioId);
     Holdings.remove({portfolioName:portfolioName});
     Watchlist.remove({portfolioName:portfolioName});
+    Orders.remove({portfolioName:portfolioName});
   },
 
   addToWatchlist: function(symbol, name, currentPrice) {
@@ -95,18 +97,18 @@ Meteor.methods({
         $set: {available: newAvailable}
       });
 
-      var curDate = new Date();
-      Orders.insert({
-        portfolioName: portfolio.name,
-        createdBy: Meteor.userId(),
-        tradeType: "Buy",
-        company: companyName,
-        symbol: symbol,
-        quantity: quantity,
-        date: curDate
-      });
-
     }
+
+    var curDate = new Date();
+    Orders.insert({
+      portfolioName: portfolio.name,
+      createdBy: Meteor.userId(),
+      tradeType: "Buy",
+      company: companyName,
+      symbol: symbol,
+      quantity: quantity,
+      date: curDate
+    });
 
     
   },
@@ -114,21 +116,40 @@ Meteor.methods({
   SellStock: function(symbol, companyName, quantity, price) {
     var portfolio = TradePortfolios.findOne({current:true});
     var curHolding = Holdings.findOne({symbol:symbol});
+    var valid;
 
     if (curHolding === undefined || quantity > curHolding.quantity) {
       //doesn't own the stock or selling too much
+      valid = false;
     } else {
+      var rev = quantity*price - fee;
+      console.log("Revenue: " + rev);
+      var newAvailable = portfolio.available + rev;
       if (quantity == curHolding.quantity) {
         //selling everything -> remove holding
-        var rev = quantity*price;
-        var newAvailable = portfolio.available + rev;
         Holdings.remove(curHolding._id);
-        TradePortfolios.update(portfolio._id, {
-          $set: {available:newAvailable}
-        });
+        
       } else {
         //not selling everything
+        var newQuantity = curHolding.quantity - quantity;
+        var newCostBasis = price*newQuantity + fee;
+        var newAvgBuyPrice = newCostBasis/newQuantity;
+        Holdings.update(curHolding._id, {
+          $set: {
+            quantity: newQuantity, 
+            costBasis: newCostBasis.toFixed(2),
+            avgBuyPrice: newAvgBuyPrice.toFixed(2)
+          }
+        });
       }
+      TradePortfolios.update(portfolio._id, {
+        $set: {available:newAvailable}
+      });
+      valid = true;
+        
+    }
+
+    if (valid) {
       var curDate = new Date();
       Orders.insert({
         portfolioName: portfolio.name,
@@ -139,8 +160,8 @@ Meteor.methods({
         quantity: quantity,
         date: curDate
       });
-      
     }
+    
     
     
   },
@@ -156,7 +177,7 @@ Meteor.methods({
   getMarketPrice: function(symbol) {
     var data = YahooFinance.snapshot({
       symbols: [symbol],
-      fields: ['a']
+      fields: ['a', 'b']
     });
     return data[0];
     

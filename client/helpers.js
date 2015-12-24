@@ -29,10 +29,18 @@ function getWatchlistSymbols() {
 function getMarketPrice(symbol) {
 	Meteor.call('getMarketPrice', symbol, function(error, result) {
 		if (result !== null) {
-			var query = "tempMarketPrice" + symbol;
-			Session.set(query, result.ask);
+			Session.set("tempAskPrice" + symbol, result.ask);
+			Session.set("tempBidPrice" + symbol, result.bid);
 		}
 	});
+}
+
+function getMarketBid(symbol) {
+	Meteor.call('getMarketPrice', symbol, function(error, result) {
+		if (result !== null ) {
+			
+		}
+	})
 }
 
 //////////////
@@ -64,11 +72,22 @@ Template.trade.helpers({
 	previewInfo: function(selector) {
 		var currentTrade = Session.get('currentTrade');
 		getMarketPrice(currentTrade.symbol);
-		var marketPrice = Session.get("tempMarketPrice" + currentTrade.symbol);
-		if (currentTrade && marketPrice) {
+		var priceType;
+		var fee = 4.99;
+
+		if (currentTrade) {
+			if (currentTrade.option == "Buy") {
+				priceType = "Ask";
+			} else {
+				priceType = "Bid";
+				fee = -fee;
+			}
+			var marketPrice = Session.get("temp" + priceType + "Price" + currentTrade.symbol);
+
+
 			if (selector == "total") {
 				var shares = Number(currentTrade.shares);
-				return "$" + (marketPrice*shares).toFixed(2);
+				return "$" + (marketPrice*shares+fee).toFixed(2);
 			} else if (selector == "price") {
 				return "$" + marketPrice.toFixed(2);
 			} else {
@@ -102,22 +121,22 @@ Template.maindashboard.helpers ({
 
 	//OVERVIEW
 	overview: function() {
-		if (TradePortfolios.findOne({current:true})) {
-				var available = Number(TradePortfolios.findOne({current:true}).available);
+		var curPortfolio = TradePortfolios.findOne({current:true});
+		if (curPortfolio) {
+				var available = Number(curPortfolio.available);
 				Session.set('available', available);
 		}
 		
 		var accountValue = Number(available);
-		var totalChange = 0;
 
-		Holdings.find().forEach(function(holding) {
+		Holdings.find({portfolioName:curPortfolio.name}).forEach(function(holding) {
 			getMarketPrice(holding.symbol);
-			var query = "tempMarketPrice" + holding.symbol;
+			var query = "tempAskPrice" + holding.symbol;
 			var marketPrice = Session.get(query);
 			var holdingMarketVal = marketPrice*holding.quantity;
 			accountValue += holdingMarketVal;
-			totalChange += (holdingMarketVal - Number(holding.costBasis));
 		});
+		var totalChange = accountValue - curPortfolio.initialBalance;
 
 		Session.set('accountValue', accountValue);
 		Session.set('totalChange', totalChange);
@@ -151,7 +170,14 @@ Template.maindashboard.helpers ({
 
 	//HOLDINGS
 	holdings: function() {
-		return Holdings.find({createdBy: Meteor.userId()});
+		var portfolio = TradePortfolios.findOne({current:true});
+		if (portfolio) {
+			return Holdings.find({
+				createdBy: Meteor.userId(),
+				portfolioName:portfolio.name
+			});
+		}
+		
 	},
 
 	//QUICK QUOTE
@@ -256,13 +282,20 @@ Template.header.helpers ({
 // PAGES
 Template.holdings.helpers({
 	holdings: function() {
-		return Holdings.find({createdBy: Meteor.userId()});
+		var portfolio = TradePortfolios.findOne({current:true});
+		if (portfolio) {
+			return Holdings.find({
+				createdBy: Meteor.userId(),
+				portfolioName: portfolio.name
+			});
+		}
+		
 	},
 
 	update: function(symbol) {
 		getMarketPrice(symbol);
 		var curHolding = Holdings.findOne({symbol:symbol});
-		var query = "tempMarketPrice" + symbol;
+		var query = "tempAskPrice" + symbol;
 		var marketPrice = Session.get(query);
 		var marketValue;
 		var change;
@@ -289,12 +322,18 @@ Template.holdings.helpers({
 Template.watchlist.helpers({
 
 	watcheds: function() {
-		return Watchlist.find({createdBy:Meteor.userId()});
+		var portfolio = TradePortfolios.findOne({current:true});
+		if (portfolio) {
+			return Watchlist.find({
+				createdBy: Meteor.userId(),
+				portfolioName: portfolio.name
+			});
+		}
 	},
 
 	marketPrice: function(symbol) {
 		getMarketPrice(symbol);
-		var marketPrice = Session.get("tempMarketPrice" + symbol);
+		var marketPrice = Session.get("tempAskPrice" + symbol);
 		return "$" + marketPrice.toFixed(2);
 	},
 
@@ -313,7 +352,13 @@ Template.watchlist.helpers({
 Template.orders.helpers({
 	
 	orders: function() {
-		return Orders.find({createdBy:Meteor.userId()});
+		var portfolio = TradePortfolios.findOne({current:true});
+		if (portfolio) {
+			return Orders.find({
+				createdBy: Meteor.userId(),
+				portfolioName: portfolio.name
+			});
+		}
 	},
 
 	date: function(date) {

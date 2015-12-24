@@ -1,5 +1,8 @@
+////////////
+// EVENTS //
+////////////
 
-
+// MISC
 Template.header.events({
   'click .logout': function(event) {
     event.preventDefault();
@@ -21,6 +24,7 @@ Template.sidebar.events({
   }
 });
 
+// DASHBOARDS
 Template.portfoliosdashboard.events({
   /*
   'click .edit': function(event) {
@@ -59,19 +63,6 @@ Template.portfoliosdashboard.events({
   }
 });
 
-Template.newportfolio.events({
-  'submit form': function(event) {
-    event.preventDefault();
-    var name = event.target.portfolio_name.value;
-    var balance = event.target.portfolio_balance.value;
-    var description = event.target.portfolio_description.value;
-
-    Meteor.call("addPortfolio", name, balance, description);
-    Router.go('portfoliosdashboard');
-  }
-});
-
-
 Template.maindashboard.events({
   'submit .search-field': function(event) {
     event.preventDefault();
@@ -101,6 +92,19 @@ Template.maindashboard.events({
     }, 2000);
   }
 
+});
+
+// FORMS
+Template.newportfolio.events({
+  'submit form': function(event) {
+    event.preventDefault();
+    var name = event.target.portfolio_name.value;
+    var balance = event.target.portfolio_balance.value;
+    var description = event.target.portfolio_description.value;
+
+    Meteor.call("addPortfolio", name, balance, description);
+    Router.go('portfoliosdashboard');
+  }
 });
 
 Template.trade.events({
@@ -150,9 +154,15 @@ Template.trade.events({
       var shares = Number(curTrade.shares);
 
 
-      Meteor.call("getQuote", symbol, function(error, result) {
+      Meteor.call("getMarketPrice", symbol, function(error, result) {
         if (result !== null) {
-          Meteor.call(method, symbol, name, shares, result.ask);
+          var priceType;
+          if (curTrade.option == "Buy") {
+            priceType = "ask";
+          } else {
+            priceType = "bid";
+          }
+          Meteor.call(method, symbol, name, shares, result[priceType]);
           Router.go('loading');
           setTimeout(function(){
             alert("Trade Successfully Submitted");
@@ -166,9 +176,9 @@ Template.trade.events({
 
     
   }
-
 });
 
+// PAGES
 Template.watchlist.events({
   'click #remove': function(event) {
     event.preventDefault();
